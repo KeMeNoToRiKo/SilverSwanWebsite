@@ -9,6 +9,7 @@ silver-swan-site/
 │   └── styles.css       all styles
 ├── js/
 │   └── main.js          hydration scale + manuscript button
+├── team/                one profile page per member (resume + socials)
 ├── images/
 │   ├── team/            one square portrait per member
 │   └── manuscript-cover.png
@@ -60,14 +61,22 @@ in sync if the table changes. The swatch colors in `index.html` (`--c` on each
 ## Team section
 
 Each member is an `<li class="member">` in `index.html` with a photo, name, role,
-short overview and skills line. The overviews and photos come from Appendix P
-(Researchers Profile) of the manuscript.
+short overview and skills line. Clicking a card opens that member's profile page
+in `team/` (`ingal.html`, `ombrog.html`, `sabulao.html`, `sangkula.html`), which
+has their resume and LinkedIn/GitHub links. The resumes and photos come from
+Appendix P (Researchers Profile) of the manuscript.
 
 - **Photos** live in `images/team/`. To swap one, drop in a square image with the
   same filename. Any size works; 400×400 or larger looks sharp.
-- **Making a card clickable:** wrap the name in a link. The whole card becomes the
-  click target and gets a hover arrow, with no extra CSS needed:
-
-  ```html
-  <h3 class="member__name"><a class="member__link" href="team/ingal.html">Ian B. Ingal</a></h3>
-  ```
+- **Editing a profile:** edit that member's file in `team/` directly. Name and
+  role also appear on the home page card and in the "Other members" list at the
+  bottom of the other three profiles, so change those too.
+- **Profile layout:** on wide screens the photo, bio and socials sit in a sidebar
+  that stays pinned while the resume scrolls. It only pins on windows at least
+  760px tall, sized to fit the longest bio. If a bio gets much longer, raise
+  that number in the `min-height` media query at the bottom of `css/styles.css`.
+- **Clickable cards:** the name on each home page card is wrapped in
+  `<a class="member__link">`. That link makes the whole card the click target
+  and adds the hover arrow; remove it and the card goes back to plain text.
+- **Contact details:** phone numbers, home addresses and emails from the resumes
+  are deliberately left off. Add them only if the member wants them public.

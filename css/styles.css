@@ -222,6 +222,65 @@ ul,ol{padding:0;list-style:none;}
 .btn-note{margin-top:10px;font-size:.85rem;color:var(--ink-3);}
 .btn-note:empty{display:none;}
 
+/* ---------- profile pages (team/*.html) ---------- */
+/* Phones: sidebar stacks above the resume. Wide screens: two columns, see the 960px query. */
+.profile{padding-top:28px;display:grid;gap:44px;}
+.profile__back{font-family:var(--mono);font-size:.8rem;color:var(--ink-2);text-decoration:none;}
+.profile__back:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px;}
+.profile__head{
+  margin-top:24px;
+  display:grid;grid-template-columns:104px minmax(0,1fr);gap:20px;align-items:center;
+}
+.profile__photo{
+  width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;
+  background:var(--paper-2);box-shadow:0 0 0 1px var(--rule-2);
+}
+.profile__role{font-family:var(--mono);font-size:.8rem;color:var(--accent);}
+.profile__name{
+  margin-top:4px;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.9rem,6vw,3rem);line-height:1.05;letter-spacing:-.02em;
+  text-wrap:balance;
+}
+.profile__bio{margin-top:24px;font-family:var(--serif);font-size:1.15rem;line-height:1.5;max-width:58ch;}
+
+.socials{margin-top:24px;display:grid;column-gap:32px;border-top:1px solid var(--rule-2);}
+.socials li{
+  display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:12px;align-items:baseline;
+  padding-block:11px;border-bottom:1px solid var(--rule);
+}
+.socials__k{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);}
+.socials a{font-weight:500;text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:4px;overflow-wrap:anywhere;}
+.socials a:hover{text-decoration-color:currentColor;}
+
+.cv__block{padding-block:16px 28px;border-top:1px solid var(--rule-2);}
+.cv__block:first-child{border-top-color:var(--ink);}
+.cv__label{font-family:var(--mono);font-size:.8rem;font-weight:500;color:var(--accent);}
+.cv__body{margin-top:12px;}
+.cv__item{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;}
+.cv__item + .cv__item{margin-top:16px;}
+.cv__title{font-weight:600;}
+.cv__meta{grid-column:2;grid-row:1;font-family:var(--mono);font-size:.76rem;color:var(--ink-3);white-space:nowrap;}
+.cv__desc{grid-column:1 / -1;color:var(--ink-2);font-size:.95rem;}
+.cv__skills > div{padding-block:10px;border-bottom:1px solid var(--rule);}
+.cv__skills > div:first-child{padding-top:0;}
+.cv__skills dt{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);}
+.cv__skills dd{font-size:.95rem;}
+.cv__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 24px;font-size:.95rem;}
+.cv__note{margin-top:14px;font-size:.84rem;color:var(--ink-3);}
+
+.others{margin-top:28px;border-top:1px solid var(--ink);}
+.others__label{padding-top:14px;font-family:var(--mono);font-size:.8rem;color:var(--ink-3);}
+.others__list{margin-top:14px;display:grid;column-gap:32px;border-top:1px solid var(--rule-2);}
+.others__list a{
+  display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:center;
+  padding-block:12px;border-bottom:1px solid var(--rule);text-decoration:none;
+}
+.others__list img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:0 0 0 1px var(--rule-2);}
+.others__name{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;line-height:1.25;}
+.others__role{display:block;font-family:var(--mono);font-size:.72rem;color:var(--accent);}
+.others__list a:hover .others__name{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+
 /* footer */
 .footer{margin-top:88px;border-top:1px solid var(--ink);}
 .footer__inner{display:grid;gap:6px;padding-block:22px 40px;font-size:.82rem;color:var(--ink-3);}
@@ -236,6 +295,11 @@ ul,ol{padding:0;list-style:none;}
   .fig + .fig{border-top:0;border-left:1px solid var(--rule);padding-left:20px;}
   .fig{padding-right:20px;}
   .doc{grid-template-columns:150px minmax(0,1fr);gap:36px;}
+  .profile__head{grid-template-columns:150px minmax(0,1fr);gap:32px;}
+  .socials{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .cv__list{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .cv__skills > div{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:16px;align-items:baseline;}
+  .others__list{grid-template-columns:repeat(3,minmax(0,1fr));}
 }
 @media (min-width:760px){
   .nav a:not(.nav__doc){display:inline;}
@@ -253,6 +317,22 @@ ul,ol{padding:0;list-style:none;}
   .section__grid{display:grid;grid-template-columns:160px minmax(0,1fr);column-gap:40px;}
   .section__head{flex-direction:column;gap:2px;position:sticky;top:24px;align-self:start;}
   .section__body{margin-top:0;}
+  .profile{grid-template-columns:340px minmax(0,1fr);gap:0;align-items:start;padding-top:40px;}
+  .profile__side{padding-right:48px;}
+  .profile__head{display:block;}
+  .profile__photo{width:112px;}
+  .profile__head > div{margin-top:16px;}
+  .profile__name{font-size:2.15rem;}
+  .profile__bio{margin-top:18px;font-size:1.03rem;}
+  .socials{margin-top:20px;grid-template-columns:minmax(0,1fr);}
+  .socials li{grid-template-columns:minmax(0,1fr);gap:2px;}
+  .profile__main{border-left:1px solid var(--rule-2);padding-left:48px;}
+  .others__list{grid-template-columns:minmax(0,1fr);}
+}
+/* Pin the sidebar only when the window is tall enough to show all of it
+   (the tallest sidebar, Ian's, is about 660px). */
+@media (min-width:960px) and (min-height:760px){
+  .profile__side{position:sticky;top:32px;}
 }
 
 @media (prefers-reduced-motion:reduce){
