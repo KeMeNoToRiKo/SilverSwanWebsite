@@ -4,7 +4,11 @@ Static site. No build step, no dependencies, no framework.
 
 ```
 silver-swan-site/
-├── index.html           the whole page (HTML + CSS + JS in one file)
+├── index.html           page markup
+├── css/
+│   └── styles.css       all styles
+├── js/
+│   └── main.js          hydration scale + manuscript button
 ├── PBL3_Manuscript.pdf  served at /PBL3_Manuscript.pdf
 └── vercel.json          tells Vercel this is a static site
 ```
@@ -32,7 +36,7 @@ Domains if you want something shorter to read out loud during the defense.
 
 ## Changing the manuscript link
 
-Near the bottom of `index.html`:
+At the top of `js/main.js`:
 
 ```js
 const MANUSCRIPT_URL = "/PBL3_Manuscript.pdf";
@@ -44,7 +48,8 @@ the button and shows a fallback message instead.
 
 ## Editing content
 
-Everything lives in `index.html`. The eight hydration levels (colors, SG ranges,
-HSV centroids) are in the `LEVELS` array in the script at the bottom — those
-values come from Table 4.1 of the manuscript, so keep them in sync if the table
-changes.
+Page text lives in `index.html` and styles in `css/styles.css`. The eight
+hydration levels (colors, SG ranges, HSV centroids) are in the `LEVELS` array in
+`js/main.js` — those values come from Table 4.1 of the manuscript, so keep them
+in sync if the table changes. The swatch colors in `index.html` (`--c` on each
+`.sw` button) must match the `hex` values in that array.
