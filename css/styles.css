@@ -29,6 +29,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;height:auto;display:block;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 a{color:inherit;}
 h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0;}
 ul,ol{padding:0;list-style:none;}
@@ -245,13 +246,18 @@ ul,ol{padding:0;list-style:none;}
 .profile__bio{margin-top:24px;font-family:var(--serif);font-size:1.15rem;line-height:1.5;max-width:58ch;}
 
 .socials{margin-top:24px;display:grid;column-gap:32px;border-top:1px solid var(--rule-2);}
-.socials li{
-  display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:12px;align-items:baseline;
-  padding-block:11px;border-bottom:1px solid var(--rule);
-}
-.socials__k{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);}
-.socials a{font-weight:500;text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:4px;overflow-wrap:anywhere;}
-.socials a:hover{text-decoration-color:currentColor;}
+.socials li{border-bottom:1px solid var(--rule);}
+.socials a{display:flex;align-items:center;gap:12px;padding-block:7px;font-weight:500;text-decoration:none;}
+.socials__icon{width:18px;height:18px;flex:none;fill:currentColor;color:var(--ink-2);transition:color .2s var(--ease);}
+.socials__v{text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:4px;overflow-wrap:anywhere;}
+.socials a:hover .socials__v{text-decoration-color:currentColor;}
+/* icons sit in ink and take their platform's colour on hover */
+.socials a:hover .socials__icon,.socials a:focus-visible .socials__icon{color:var(--brand,var(--ink));}
+[data-net="linkedin"]{--brand:#0a66c2;}
+[data-net="github"]{--brand:#181717;}
+[data-net="briefcase"]{--brand:#08a0e9;}
+[data-net="instagram"]{--brand:#e4405f;}
+[data-net="facebook"]{--brand:#0866ff;}
 
 .cv__block{padding-block:16px 28px;border-top:1px solid var(--rule-2);}
 .cv__block:first-child{border-top-color:var(--ink);}
@@ -325,12 +331,11 @@ ul,ol{padding:0;list-style:none;}
   .profile__name{font-size:2.15rem;}
   .profile__bio{margin-top:18px;font-size:1.03rem;}
   .socials{margin-top:20px;grid-template-columns:minmax(0,1fr);}
-  .socials li{grid-template-columns:minmax(0,1fr);gap:2px;}
   .profile__main{border-left:1px solid var(--rule-2);padding-left:48px;}
   .others__list{grid-template-columns:minmax(0,1fr);}
 }
 /* Pin the sidebar only when the window is tall enough to show all of it
-   (the tallest sidebar, Ian's, is about 660px). */
+   (the tallest sidebar, Ian's with five socials, is about 705px). */
 @media (min-width:960px) and (min-height:760px){
   .profile__side{position:sticky;top:32px;}
 }

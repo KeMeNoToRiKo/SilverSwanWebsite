@@ -78,5 +78,12 @@ Appendix P (Researchers Profile) of the manuscript.
 - **Clickable cards:** the name on each home page card is wrapped in
   `<a class="member__link">`. That link makes the whole card the click target
   and adds the hover arrow; remove it and the card goes back to plain text.
+- **Adding a social link:** in the member's file in `team/`, copy one `<li>` from
+  the `socials` list and change three things: `data-net` and the icon name after
+  `icons.svg#` (both one of `linkedin`, `github`, `briefcase`, `instagram`,
+  `facebook`), the `href`, and the visible handle. Ian's profile has all five as
+  examples. Icons live in `images/icons.svg` and turn their brand color on hover.
+  They won't show if you open the HTML file directly from disk; use a local
+  server (e.g. VS Code Live Server) or the deployed site.
 - **Contact details:** phone numbers, home addresses and emails from the resumes
   are deliberately left off. Add them only if the member wants them public.
