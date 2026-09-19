@@ -9,6 +9,9 @@ silver-swan-site/
 │   └── styles.css       all styles
 ├── js/
 │   └── main.js          hydration scale + manuscript button
+├── images/
+│   ├── team/            one square portrait per member
+│   └── manuscript-cover.png
 ├── PBL3_Manuscript.pdf  served at /PBL3_Manuscript.pdf
 └── vercel.json          tells Vercel this is a static site
 ```
@@ -53,3 +56,18 @@ hydration levels (colors, SG ranges, HSV centroids) are in the `LEVELS` array in
 `js/main.js` — those values come from Table 4.1 of the manuscript, so keep them
 in sync if the table changes. The swatch colors in `index.html` (`--c` on each
 `.sw` button) must match the `hex` values in that array.
+
+## Team section
+
+Each member is an `<li class="member">` in `index.html` with a photo, name, role,
+short overview and skills line. The overviews and photos come from Appendix P
+(Researchers Profile) of the manuscript.
+
+- **Photos** live in `images/team/`. To swap one, drop in a square image with the
+  same filename. Any size works; 400×400 or larger looks sharp.
+- **Making a card clickable:** wrap the name in a link. The whole card becomes the
+  click target and gets a hover arrow, with no extra CSS needed:
+
+  ```html
+  <h3 class="member__name"><a class="member__link" href="team/ingal.html">Ian B. Ingal</a></h3>
+  ```
