@@ -8,10 +8,13 @@ silver-swan-site/
 ├── css/
 │   └── styles.css       all styles
 ├── js/
-│   └── main.js          hydration scale + manuscript button
+│   ├── main.js          hydration scale + manuscript button (home page only)
+│   └── theme.js         light/dark toggle (every page)
 ├── team/                one profile page per member (resume + socials)
 ├── images/
 │   ├── team/            one square portrait per member
+│   ├── icons.svg        social-link logos
+│   ├── demo-poster*.jpg thumbnail shown before the demo video plays
 │   └── manuscript-cover.png
 ├── PBL3_Manuscript.pdf  served at /PBL3_Manuscript.pdf
 └── vercel.json          tells Vercel this is a static site
@@ -58,12 +61,27 @@ hydration levels (colors, SG ranges, HSV centroids) are in the `LEVELS` array in
 in sync if the table changes. The swatch colors in `index.html` (`--c` on each
 `.sw` button) must match the `hex` values in that array.
 
+## Demo video
+
+The YouTube demonstration is Fig. 2 in the System section (`id="demo"`), and the
+"Watch the demonstration" link in the hero jumps to it. Until someone presses
+play it is only a thumbnail (`images/demo-poster.jpg`), so the page loads nothing
+from YouTube up front. Pressing play loads the player in place from
+youtube-nocookie.com, YouTube's privacy-enhanced domain. Without JavaScript the
+thumbnail is a plain link to the video on YouTube.
+
+To swap in a different video, change the video ID (`-ihNrsX2kaU`) in the
+`data-youtube` attribute and both YouTube links, update the 5:31 length in the
+caption and the hero link, and replace the two poster images with the new
+video's thumbnail (`https://i.ytimg.com/vi/<ID>/maxresdefault.jpg`, plus a
+640px-wide copy).
+
 ## Team section
 
 Each member is an `<li class="member">` in `index.html` with a photo, name, role,
 short overview and skills line. Clicking a card opens that member's profile page
 in `team/` (`ingal.html`, `ombrog.html`, `sabulao.html`, `sangkula.html`), which
-has their resume and LinkedIn/GitHub links. The resumes and photos come from
+has their resume and social links. The resumes and photos come from
 Appendix P (Researchers Profile) of the manuscript.
 
 - **Photos** live in `images/team/`. To swap one, drop in a square image with the
@@ -81,9 +99,23 @@ Appendix P (Researchers Profile) of the manuscript.
 - **Adding a social link:** in the member's file in `team/`, copy one `<li>` from
   the `socials` list and change three things: `data-net` and the icon name after
   `icons.svg#` (both one of `linkedin`, `github`, `briefcase`, `instagram`,
-  `facebook`), the `href`, and the visible handle. Ian's profile has all five as
+  `facebook`), the `href`, and the visible handle. Every profile has all five as
   examples. Icons live in `images/icons.svg` and turn their brand color on hover.
   They won't show if you open the HTML file directly from disk; use a local
   server (e.g. VS Code Live Server) or the deployed site.
 - **Contact details:** phone numbers, home addresses and emails from the resumes
   are deliberately left off. Add them only if the member wants them public.
+
+## Light and dark theme
+
+The site follows the visitor's system setting (light or dark) by default. The
+sun/moon button in the header switches themes; the choice is remembered in the
+browser and carries across pages. Switching back to whatever the system uses
+clears the saved choice, so the site follows the system again.
+
+- **Colors:** both palettes are the variables at the top of `css/styles.css`. The
+  dark palette appears twice there (once for "system is dark", once for "visitor
+  picked dark"), so edit both blocks together.
+- **New pages** need the same two lines in `<head>` as the existing ones:
+  `<script src="js/theme.js"></script>` (no `defer`, so there is no flash of the
+  wrong theme) and the stylesheet, plus the `theme-toggle` button in the header.

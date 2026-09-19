@@ -47,3 +47,19 @@ if (MANUSCRIPT_URL) {
     el("btn-note").textContent = "The manuscript link isn't published yet — ask Team Silver Swan for a copy.";
   });
 }
+
+/* Demo video: the poster links to YouTube; pressing it loads the player in place
+   (privacy-enhanced youtube-nocookie domain), so nothing loads until then. */
+document.querySelectorAll("[data-youtube]").forEach(poster => {
+  poster.addEventListener("click", e => {
+    e.preventDefault();
+    const player = document.createElement("iframe");
+    player.src = `https://www.youtube-nocookie.com/embed/${poster.dataset.youtube}?autoplay=1&rel=0&playsinline=1`;
+    player.title = poster.dataset.title;
+    player.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    player.referrerPolicy = "strict-origin-when-cross-origin";
+    player.allowFullscreen = true;
+    poster.replaceWith(player);
+    player.focus();
+  });
+});
