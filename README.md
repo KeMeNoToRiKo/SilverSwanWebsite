@@ -63,6 +63,19 @@ hydration levels (colors, SG ranges, HSV centroids) are in the `LEVELS` array in
 in sync if the table changes. The swatch colors in `index.html` (`--c` on each
 `.sw` button) must match the `hex` values in that array.
 
+## Text size
+
+The base size is one line at the top of `css/styles.css`:
+
+```css
+html{font-size:clamp(1.03rem,1rem + .2vw,1.1rem);}
+```
+
+It works out to roughly 16.7px on a phone and 17.6px on a desktop, and every
+other size is in `rem`, so changing that line rescales the whole page. It is set
+in `rem` rather than `px` so a visitor who has enlarged text in their browser
+still gets it.
+
 ## Demo video
 
 The YouTube demonstration is Fig. 2 in the System section (`id="demo"`), and the
