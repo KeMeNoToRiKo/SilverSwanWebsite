@@ -8,6 +8,8 @@
 <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)" />
 <script src="../js/theme.js"></script>
+<link rel="icon" href="../images/favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="../images/favicon-180.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
@@ -18,17 +20,7 @@
 <header class="masthead">
   <div class="wrap masthead__inner">
     <a class="brand" href="../">
-      <svg class="brand__mark" viewBox="0 0 32 14" aria-hidden="true">
-        <rect x="0"  y="0" width="4" height="14" fill="#FAF9E9"/>
-        <rect x="4"  y="0" width="4" height="14" fill="#FFFAD4"/>
-        <rect x="8"  y="0" width="4" height="14" fill="#F9F1B5"/>
-        <rect x="12" y="0" width="4" height="14" fill="#EBE885"/>
-        <rect x="16" y="0" width="4" height="14" fill="#E0D462"/>
-        <rect x="20" y="0" width="4" height="14" fill="#D9C336"/>
-        <rect x="24" y="0" width="4" height="14" fill="#CBA13E"/>
-        <rect x="28" y="0" width="4" height="14" fill="#A38331"/>
-        <rect x=".5" y=".5" width="31" height="13" fill="none" stroke="currentColor" stroke-opacity=".35"/>
-      </svg>
+      <span class="brand__mark" aria-hidden="true"></span>
       Silver Swan
     </a>
     <nav class="nav" aria-label="Sections">
@@ -181,8 +173,11 @@
 
 <footer class="footer">
   <div class="wrap footer__inner">
-    <p>FEU Alabang, Bachelor of Science in Computer Science with Specialization in Software Engineering</p>
-    <p>© 2026 Ingal, I. B., Ombrog, X. M. E. N., Sabulao Jr, J. J. C., and Sangkula, C. K. P. All rights reserved.</p>
+    <span class="footer__seal" aria-hidden="true"></span>
+    <div class="footer__text">
+      <p>FEU Alabang, Bachelor of Science in Computer Science with Specialization in Software Engineering</p>
+      <p>© 2026 Ingal, I. B., Ombrog, X. M. E. N., Sabulao Jr, J. J. C., and Sangkula, C. K. P. All rights reserved.</p>
+    </div>
   </div>
 </footer>
 

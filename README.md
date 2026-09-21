@@ -14,6 +14,8 @@ silver-swan-site/
 ├── images/
 │   ├── team/            one square portrait per member
 │   ├── icons.svg        social-link logos
+│   ├── logo-*.png       swan logo: header mark + footer badge, light and dark
+│   ├── favicon-*.png    browser tab and home-screen icons
 │   ├── demo-poster*.jpg thumbnail shown before the demo video plays
 │   └── manuscript-cover.png
 ├── PBL3_Manuscript.pdf  served at /PBL3_Manuscript.pdf
@@ -105,6 +107,25 @@ Appendix P (Researchers Profile) of the manuscript.
   server (e.g. VS Code Live Server) or the deployed site.
 - **Contact details:** phone numbers, home addresses and emails from the resumes
   are deliberately left off. Add them only if the member wants them public.
+
+## Logo
+
+The swan badge appears in three places, all cut from the original square artwork:
+
+- **Header mark** next to "Silver Swan" — `logo-swan-disc.png` (swan on a dark
+  disc) on the light theme, `logo-swan.png` (plain silver swan) on dark. The
+  silver swan alone is too faint on the pale background, and the disc would
+  disappear on the dark one.
+- **Footer seal** — the full badge with its "URINO · SILVER SWAN" ring:
+  `logo-badge.png` on light, `logo-badge-dark.png` on dark, where the ring
+  lettering is lightened so it stays readable.
+- **Favicon and home-screen icon** — `favicon-32.png` and `favicon-180.png`, both
+  the disc version so it shows up on light and dark browser tabs alike.
+
+Which file each spot uses is set by the `--logo-mark` and `--logo-badge`
+variables at the top of `css/styles.css`, so swapping artwork means replacing the
+PNGs or pointing those variables somewhere else. The ring lettering is too small
+to read at header size, which is why the header uses the swan on its own.
 
 ## Light and dark theme
 

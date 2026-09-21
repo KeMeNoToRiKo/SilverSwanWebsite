@@ -11,6 +11,8 @@
   --rule-strong:#1c1d1a;     /* section and masthead dividers */
   --accent:#7a5c14;          /* dark ochre, pulled from the hydration scale */
   --cover-filter:none;
+  --logo-mark:url("../images/logo-swan-disc.png");   /* swan on an ink disc, for paper */
+  --logo-badge:url("../images/logo-badge.png");
   --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -36,6 +38,8 @@
     --rule-strong:#6a6457;
     --accent:#d1a847;
     --cover-filter:brightness(.88);
+    --logo-mark:url("../images/logo-swan.png");      /* plain silver swan reads on dark */
+    --logo-badge:url("../images/logo-badge-dark.png");
   }
 }
 :root[data-theme="dark"]{
@@ -51,6 +55,8 @@
   --rule-strong:#6a6457;
   --accent:#d1a847;
   --cover-filter:brightness(.88);
+  --logo-mark:url("../images/logo-swan.png");
+  --logo-badge:url("../images/logo-badge-dark.png");
 }
 
 /* switching themes cross-fades where the browser supports view transitions (see js/theme.js) */
@@ -87,7 +93,7 @@ ul,ol{padding:0;list-style:none;}
   font-family:var(--serif);font-size:1.2rem;font-weight:500;letter-spacing:-.01em;
   text-decoration:none;
 }
-.brand__mark{width:32px;height:14px;flex:none;display:block;}
+.brand__mark{width:32px;height:32px;flex:none;background:var(--logo-mark) center/contain no-repeat;}
 .nav{display:flex;gap:24px;font-size:.9rem;}
 .nav a{color:var(--ink-2);text-decoration:none;}
 .nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}
@@ -390,7 +396,9 @@ ul,ol{padding:0;list-style:none;}
 
 /* footer */
 .footer{margin-top:88px;border-top:1px solid var(--rule-strong);}
-.footer__inner{display:grid;gap:6px;padding-block:22px 40px;font-size:.82rem;color:var(--ink-3);}
+.footer__inner{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;padding-block:26px 44px;}
+.footer__seal{width:84px;height:84px;flex:none;background:var(--logo-badge) center/contain no-repeat;}
+.footer__text{display:grid;gap:6px;font-size:.82rem;color:var(--ink-3);}
 
 /* ---------- responsive ---------- */
 @media (min-width:640px){
