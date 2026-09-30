@@ -5,12 +5,16 @@ Static site. No build step, no dependencies, no framework.
 ```
 silver-swan-site/
 ├── index.html           page markup
+├── manuscript.html      manuscript reader, served at /manuscript
+├── 404.html             "Off the scale" page for unknown addresses
 ├── css/
 │   └── styles.css       all styles
 ├── js/
-│   ├── main.js          hydration scale + manuscript button (home page only)
+│   ├── main.js          hydration scale, nav highlight, citation (home page only)
 │   ├── arrival.js       RFID / QR / link greeting (home page only)
-│   └── theme.js         light/dark toggle (every page)
+│   ├── reader.js        manuscript reader (manuscript.html only)
+│   ├── theme.js         light/dark toggle (every page)
+│   └── vendor/pdfjs-*/  PDF.js, Mozilla's PDF renderer (reader only)
 ├── team/                one profile page per member (resume + socials)
 ├── images/
 │   ├── team/            one square portrait per member
@@ -83,17 +87,41 @@ Platforms cache previews. After changing them, re-scrape with Facebook's
 [Sharing Debugger](https://developers.facebook.com/tools/debug/) or LinkedIn's
 [Post Inspector](https://www.linkedin.com/post-inspector/).
 
-## Changing the manuscript link
+## Manuscript reader
 
-At the top of `js/main.js`:
+"Read the manuscript" opens `/manuscript`, a reader with a Contents list
+(sidebar on wide screens, a sheet from the Contents button on phones), a page
+box to jump to any page, zoom, and a PDF download. The page in the address
+updates as you read (`/manuscript#page=117`), so any page can be linked or
+shared, and a returning visitor is offered "Continue from page N".
 
-```js
-const MANUSCRIPT_URL = "/PBL3_Manuscript.pdf";
-```
+- **How it loads:** `js/reader.js` draws pages with PDF.js (self-hosted in
+  `js/vendor/`, loaded only on this page). It fetches the PDF in pieces, only
+  around the pages being read, so opening it costs about half a megabyte rather
+  than the full 13 MB. Without JavaScript, or if it fails, the page shows a direct
+  link to the PDF instead.
+- **Contents page numbers** are PDF pages, not the printed ones: printed page N
+  is PDF page N + 14 (Chapter 1 starts on PDF page 15). The list is plain links
+  in `manuscript.html` (`href="#page=N"`). The home page also links into it: the
+  Table 4.1 link under Fig. 1 and "Full evaluation in Chapter 4" under Results.
+- **Replacing the PDF:** keep the name `PBL3_Manuscript.pdf`, then check the
+  Contents page numbers and the page count and size shown in `index.html` and
+  `manuscript.html`. The PDF was re-saved with its small internal objects packed
+  together ("object streams"). Page content is unchanged, but it lets the reader
+  open without scanning the whole file. A PDF exported straight from Word is laid
+  out so the reader must fetch several MB before showing page 1. To repack a new
+  export the same way: `qpdf --object-streams=generate in.pdf PBL3_Manuscript.pdf`,
+  or open and save it with the `pdf-lib` npm package using `useObjectStreams: true`.
+- **Updating PDF.js:** put the new `pdf.min.mjs` and `pdf.worker.min.mjs` from
+  the `pdfjs-dist` package's `legacy/build/` folder (the legacy build also runs
+  on older phones) in a new `js/vendor/pdfjs-<version>/` folder, and change the
+  two paths at the top of `js/reader.js`. `vercel.json` caches that folder for a
+  year, which is why the version is in the folder name.
 
-Leave it as-is to serve the PDF from the site itself. Replace it with a Google
-Drive share link if you would rather host the file there. Empty string disables
-the button and shows a fallback message instead.
+## Citation
+
+The Manuscript section ends with the APA 7 reference and a Copy button. The
+text is `#cite-text` in `index.html`; edit it there if the title or URL changes.
 
 ## Editing content
 
@@ -204,6 +232,20 @@ Everything here is plain CSS plus a few lines in `js/main.js`, with no libraries
   the accent color (`aria-current`, set in `js/main.js`).
 - **Hydration scale keys:** after tabbing to a level, arrow keys, Home and End
   move between levels.
+- **Picked level everywhere:** picking a level in Fig. 1 sets `--level` on the
+  page, and the hero's sample tube, the sample in Fig. 3 and the phone in Fig. 3
+  all take that color. Text marked `data-level="lv|sg|ph|name1|name2"` inside
+  them is filled from the `LEVELS` array in `js/main.js`.
+- **Fig. 3 device diagram:** an inline SVG in the System section of
+  `index.html`. It's a schematic, not to scale; callouts 1–4 match the four
+  stage cards below it. Part labels hide on phones, where they'd be too small.
+  Colors come from the theme variables, apart from the matte-black inside of the
+  enclosure, which stays dark in both themes.
+- **Hero sample tube:** shown under the headline on wide screens only.
+- **Closing quote:** "Thanks be to God.", Silver Swan's motto, opens every
+  page's footer (`.footer__quote`). New pages should copy the whole footer.
+- **404 page:** `404.html`, which Vercel serves for any unknown address. It uses
+  absolute paths (`/css/styles.css`) because it can appear at any depth.
 
 ## Light and dark theme
 

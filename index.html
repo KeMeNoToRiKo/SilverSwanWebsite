@@ -65,7 +65,24 @@
       </p>
 
       <div class="hero__grid">
-        <h1>An objective alternative to reading urine color <em>by eye</em>.</h1>
+        <div class="hero__lead">
+          <h1>An objective alternative to reading urine color <em>by eye</em>.</h1>
+          <!-- sample tube: its liquid follows the level picked in Fig. 1 (--level, js/main.js). Wide screens only. -->
+          <svg class="vial" viewBox="0 0 200 230" aria-hidden="true">
+            <defs><clipPath id="vial-in"><path d="M47 24v146a18 18 0 0 0 36 0V24z"/></clipPath></defs>
+            <path class="vial__back" d="M47 24v146a18 18 0 0 0 36 0V24z"/>
+            <g clip-path="url(#vial-in)">
+              <path class="liquid wave" d="M0 96q10-6 20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0V230H0z"/>
+              <circle class="vial__bubble" cx="58" cy="196" r="2.6"/>
+              <circle class="vial__bubble vial__bubble--late" cx="71" cy="204" r="1.8"/>
+            </g>
+            <path class="vial__glass" d="M47 24v146a18 18 0 0 0 36 0V24"/>
+            <rect class="vial__rim" x="40" y="14" width="50" height="10" rx="3"/>
+            <path class="vial__ticks" d="M75 60h8M77 80h6M75 100h8M77 120h6M75 140h8"/>
+            <path class="vial__lead" d="M90 100h22"/>
+            <text class="vial__tag" x="118" y="104" data-level="lv">Level 2</text>
+          </svg>
+        </div>
 
         <div>
           <p class="hero__sub">A portable, offline device that measures the pH, specific gravity and color of a urine sample inside a sealed optical chamber, then classifies hydration on a paired phone app.</p>
@@ -125,7 +142,7 @@
           </dl>
           <p class="readout__note" id="r-note">Pale yellow. Fluid intake is adequate — keep drinking at the same rate.</p>
         </div>
-        <p class="scale__source">Values from Table 4.1 of the manuscript.</p>
+        <p class="scale__source">Values from <a href="manuscript.html#page=117">Table 4.1</a> of the manuscript.</p>
       </figure>
     </div>
   </section>
@@ -182,6 +199,88 @@
             <span><b>Fig. 2</b> Video demonstration of the system</span>
             <span class="video__meta">5:31 · <a href="https://www.youtube.com/watch?v=-ihNrsX2kaU" target="_blank" rel="noopener">Watch on YouTube <span aria-hidden="true">↗</span></a></span>
           </figcaption>
+        </figure>
+
+        <!-- Fig. 3: schematic of the device. Callouts 1–4 match the stages below; the
+             sample and the phone follow the level picked in Fig. 1 (--level, js/main.js). -->
+        <figure class="diagram">
+          <svg viewBox="0 0 800 400" role="img" aria-labelledby="diag-cap">
+            <defs>
+              <linearGradient id="d-beam-up" gradientUnits="userSpaceOnUse" x1="260" y1="334" x2="260" y2="170">
+                <stop offset="0" stop-color="#fffbea" stop-opacity=".45"/>
+                <stop offset="1" stop-color="#fffbea" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="d-beam-side" gradientUnits="userSpaceOnUse" x1="448" y1="246" x2="60" y2="246">
+                <stop offset="0" stop-color="#fffbea" stop-opacity=".38"/>
+                <stop offset="1" stop-color="#fffbea" stop-opacity="0"/>
+              </linearGradient>
+              <clipPath id="d-cup-in"><path d="M182 194v112a12 12 0 0 0 12 12h132a12 12 0 0 0 12-12V194z"/></clipPath>
+            </defs>
+
+            <!-- 1 enclosure, with two white lights: one under the sample shining up
+                 through it, one on the far wall shining across it toward the
+                 camera and colour sensor -->
+            <rect class="d-house" x="30" y="30" width="460" height="330" rx="12"/>
+            <rect class="d-dark" x="50" y="50" width="420" height="290" rx="6"/>
+            <polygon points="216,331 304,331 352,170 168,170" fill="url(#d-beam-up)"/>
+            <polygon points="447,210 447,282 60,312 60,118" fill="url(#d-beam-side)"/>
+            <rect class="d-probe" x="206" y="334.5" width="108" height="4" rx="2"/>
+            <rect class="d-led" x="214" y="331" width="92" height="3.5" rx="1.75"/>
+            <rect class="d-probe" x="454" y="200" width="12" height="92" rx="2"/>
+            <rect class="d-led" x="447" y="208" width="7" height="76" rx="3.5"/>
+
+            <!-- sample -->
+            <g clip-path="url(#d-cup-in)">
+              <path class="liquid wave" d="M140 234q10-5 20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0V330H140z"/>
+            </g>
+            <path class="d-cup" d="M180 194v112a14 14 0 0 0 14 14h132a14 14 0 0 0 14-14V194"/>
+
+            <!-- 2 sensors: probes from above; camera and colour sensor on the near wall -->
+            <rect class="d-probe" x="214" y="50" width="12" height="228" rx="6"/>
+            <circle class="d-probe" cx="220" cy="284" r="9"/>
+            <rect class="d-probe" x="276" y="50" width="26" height="40" rx="4"/>
+            <rect class="d-prong" x="280" y="90" width="4" height="204" rx="2"/>
+            <rect class="d-prong" x="294" y="90" width="4" height="204" rx="2"/>
+            <rect class="d-cam" x="58" y="112" width="40" height="54" rx="3"/>
+            <circle class="d-cam-lens" cx="78" cy="139" r="10"/>
+            <rect class="d-as" x="64" y="218" width="28" height="50" rx="3"/>
+            <circle class="d-lens" cx="78" cy="243" r="6"/>
+            <path class="d-sight" d="M98 142 184 246M92 243 184 266"/>
+
+            <!-- 3 bluetooth -->
+            <path class="d-ble" d="M512 176a30 30 0 0 1 0 48M530 160a52 52 0 0 1 0 80M548 144a74 74 0 0 1 0 112"/>
+
+            <!-- 4 phone -->
+            <rect class="d-phone" x="600" y="60" width="150" height="290" rx="22"/>
+            <rect class="d-screen" x="612" y="84" width="126" height="242" rx="10"/>
+            <rect class="d-notch" x="655" y="70" width="40" height="6" rx="3"/>
+            <rect class="liquid d-swatch" x="626" y="100" width="98" height="64" rx="6"/>
+            <text class="d-ui-k" x="626" y="188" data-level="lv">Level 2</text>
+            <text class="d-ui-t" x="626" y="208"><tspan data-level="name1">Well</tspan><tspan x="626" dy="18" data-level="name2">Hydrated</tspan></text>
+            <path class="d-ui-rule" d="M626 242h98M626 272h98M626 302h98"/>
+            <text class="d-ui-k" x="626" y="261">SG <tspan class="d-ui-v" data-level="sg">1.005–1.009</tspan></text>
+            <text class="d-ui-k" x="626" y="291">pH <tspan class="d-ui-v" data-level="ph">4.5–8.0</tspan></text>
+
+            <!-- part labels (hidden on phones, where they'd be too small to read) -->
+            <g class="d-labels">
+              <text class="d-lab-in" x="322" y="335">Base LED</text>
+              <text class="d-lab-in" x="446" y="192" text-anchor="end">Side LED</text>
+              <text class="d-lab-in" x="206" y="140" text-anchor="end">pH</text>
+              <text class="d-lab-in" x="308" y="140">TDS</text>
+              <text class="d-lab-in" x="58" y="290">AS7341</text>
+              <text class="d-lab-in" x="58" y="102">ESP32-CAM</text>
+              <text class="d-lab" x="260" y="386" text-anchor="middle">Sealed optical enclosure</text>
+              <text class="d-lab" x="540" y="286" text-anchor="middle">BLE</text>
+              <text class="d-lab" x="675" y="386" text-anchor="middle">Phone app</text>
+            </g>
+
+            <!-- callouts, matching Stage 1–4 -->
+            <g class="d-call"><circle cx="30" cy="30" r="16"/><text x="30" y="30">1</text></g>
+            <g class="d-call"><circle cx="251" cy="112" r="16"/><text x="251" y="112">2</text></g>
+            <g class="d-call"><circle cx="560" cy="128" r="16"/><text x="560" y="128">3</text></g>
+            <g class="d-call"><circle cx="750" cy="60" r="16"/><text x="750" y="60">4</text></g>
+          </svg>
+          <figcaption class="video__cap" id="diag-cap"><span><b>Fig. 3</b> How the device reads a sample (schematic). Numbers match the stages below.</span></figcaption>
         </figure>
 
         <ol class="stages">
@@ -264,7 +363,7 @@
             </tbody>
           </table>
         </div>
-        <p class="footnote">Neither chemistry sensor showed a statistically significant difference from its reference instrument.</p>
+        <p class="footnote">Neither chemistry sensor showed a statistically significant difference from its reference instrument. <a class="footnote__more" href="manuscript.html#page=119">Full evaluation in Chapter 4 <span aria-hidden="true">→</span></a></p>
       </div>
     </div>
   </section>
@@ -335,15 +434,28 @@
       </header>
       <div class="section__body">
         <div class="doc">
-          <img class="doc__cover" src="images/manuscript-cover.png" alt="Title page of the manuscript" width="459" height="594" loading="lazy" />
+          <a class="doc__cover-link" href="manuscript.html" tabindex="-1" aria-hidden="true">
+            <img class="doc__cover" src="images/manuscript-cover.png" alt="" width="459" height="594" loading="lazy" />
+          </a>
           <div class="doc__text">
             <h2>The full study</h2>
             <p class="lede">Methodology, statistical validation and the complete ISO 25010 evaluation, with everything behind the numbers above.</p>
-            <p class="doc__meta">PDF · 238 pages · 13.5 MB</p>
-            <a class="btn" id="manuscript-btn" href="#">Read the manuscript <span aria-hidden="true">↗</span></a>
-            <p class="btn-note" id="btn-note"></p>
+            <p class="doc__meta">PDF · 238 pages · 13.3 MB</p>
+            <div class="doc__actions">
+              <a class="btn" href="manuscript.html">Read the manuscript <span aria-hidden="true">→</span></a>
+              <a class="doc__dl" href="PBL3_Manuscript.pdf" download>Download PDF</a>
+            </div>
           </div>
         </div>
+
+        <!-- APA 7. The Copy button is added by js/main.js; without it the text is still selectable. -->
+        <figure class="cite">
+          <figcaption class="cite__head">
+            <span class="cite__label">Cite this study · APA</span>
+            <button class="cite__copy" type="button" hidden>Copy</button>
+          </figcaption>
+          <p class="cite__text" id="cite-text">Ingal, I. B., Ombrog, X. M. E. N., Sabulao, J. J. C., Jr., &amp; Sangkula, C. K. P. (2026). <i>IoT-based smart urinalysis system for hydration monitoring, image processing and preliminary screening using fuzzy logic-enhanced KNN</i> [Bachelor’s thesis, Far Eastern University Alabang]. https://silver-swan-website.vercel.app/manuscript</p>
+        </figure>
       </div>
     </div>
   </section>
@@ -353,6 +465,7 @@
   <div class="wrap footer__inner">
     <span class="footer__seal" aria-hidden="true"></span>
     <div class="footer__text">
+      <p class="footer__quote">“Thanks be to God.”</p>
       <p>FEU Alabang, Bachelor of Science in Computer Science with Specialization in Software Engineering</p>
       <p>© 2026 Ingal, I. B., Ombrog, X. M. E. N., Sabulao Jr, J. J. C., and Sangkula, C. K. P. All rights reserved.</p>
     </div>

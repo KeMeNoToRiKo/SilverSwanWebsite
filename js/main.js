@@ -1,9 +1,3 @@
-/* ------------------------------------------------------------------
-   PBL3_Manuscript.pdf sits next to index.html, so Vercel serves it at
-   the path below. Swap in a Google Drive link instead if you prefer.
------------------------------------------------------------------- */
-const MANUSCRIPT_URL = "/PBL3_Manuscript.pdf";
-
 const LEVELS = [
   { lv:"Level 1", name:"Diluted",                sg:"below 1.005", ph:"4.5–8.0", hsv:"57°, 7%, 98%",   hex:"#FAF9E9", note:"Pale and transparent. Fluid intake is more than adequate." },
   { lv:"Level 2", name:"Well Hydrated",          sg:"1.005–1.009", ph:"4.5–8.0", hsv:"55°, 17%, 100%", hex:"#FFFAD4", note:"Pale yellow. Fluid intake is adequate — keep drinking at the same rate." },
@@ -29,6 +23,12 @@ function select(i){
   el("r-hsv").textContent = d.hsv;
   el("r-hex").textContent = d.hex;
   el("r-note").textContent = d.note;
+  // the hero vial and Fig. 3 follow along: their liquid uses --level, their
+  // text uses data-level="lv|sg|ph", or name1/name2 for the status on two lines
+  const [first, ...rest] = d.name.split(" ");
+  const text = { ...d, name1: first, name2: rest.join(" ") };
+  document.documentElement.style.setProperty("--level", d.hex);
+  document.querySelectorAll("[data-level]").forEach(n => { n.textContent = text[n.dataset.level]; });
 }
 
 swatches.forEach(s => {
@@ -94,15 +94,21 @@ if (!reduceMotion) {
   document.querySelectorAll(".fig__n").forEach(n => counter.observe(n));
 }
 
-const btn = el("manuscript-btn");
-if (MANUSCRIPT_URL) {
-  btn.href = MANUSCRIPT_URL;
-  btn.target = "_blank";
-  btn.rel = "noopener";
-} else {
-  btn.addEventListener("click", e => {
-    e.preventDefault();
-    el("btn-note").textContent = "The manuscript link isn't published yet — ask Team Silver Swan for a copy.";
+/* Citation: copy the APA reference in one click. */
+const copyBtn = document.querySelector(".cite__copy");
+if (copyBtn && navigator.clipboard) {
+  copyBtn.hidden = false;
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(el("cite-text").textContent.replace(/\s+/g, " ").trim());
+      copyBtn.textContent = "Copied";
+    } catch (e) {
+      // clipboard blocked: select the text so Ctrl/Cmd+C works
+      getSelection().selectAllChildren(el("cite-text"));
+      copyBtn.textContent = "Press ⌘/Ctrl+C";
+    }
+    copyBtn.classList.add("is-done");
+    setTimeout(() => { copyBtn.textContent = "Copy"; copyBtn.classList.remove("is-done"); }, 2000);
   });
 }
 

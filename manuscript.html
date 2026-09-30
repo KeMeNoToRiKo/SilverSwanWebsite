@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Manuscript — Team Silver Swan</title>
+<meta name="description" content="Read the full IoT-Based Smart Urinalysis System thesis by Team Silver Swan, FEU Alabang, with a chapter-by-chapter table of contents." />
+<meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)" />
+<link rel="canonical" href="https://silver-swan-website.vercel.app/manuscript" />
+<!-- link previews -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Team Silver Swan" />
+<meta property="og:title" content="The full study — Team Silver Swan" />
+<meta property="og:description" content="IoT-Based Smart Urinalysis System for Hydration Monitoring, Image Processing and Preliminary Screening Using Fuzzy Logic-Enhanced KNN. 238 pages." />
+<meta property="og:url" content="https://silver-swan-website.vercel.app/manuscript" />
+<meta property="og:image" content="https://silver-swan-website.vercel.app/images/manuscript-cover.png" />
+<meta property="og:image:width" content="459" />
+<meta property="og:image:height" content="594" />
+<meta property="og:image:alt" content="Title page of the manuscript" />
+<meta name="twitter:card" content="summary" />
+<script src="js/theme.js"></script>
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="images/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<script type="module" src="js/reader.js"></script>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a class="brand" href="./">
+      <span class="brand__mark" aria-hidden="true"></span>
+      Silver Swan
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="./#about">Background</a>
+      <a href="./#how">System</a>
+      <a href="./#results">Results</a>
+      <a href="./#team">Team</a>
+      <a class="nav__doc" href="manuscript.html" aria-current="page">Manuscript</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" hidden>
+      <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7z"/></svg>
+      <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap reader">
+  <!-- Contents. Wide screens: a pinned sidebar. Phones: a sheet opened by the
+       Contents button (native popover). Page numbers are PDF pages, not the
+       printed ones: printed page N is PDF page N + 14. -->
+  <nav class="toc" id="toc" popover aria-label="Manuscript contents">
+    <div class="toc__head">
+      <p class="toc__label">Contents</p>
+      <button class="toc__close" type="button" popovertarget="toc" popovertargetaction="hide" aria-label="Close contents">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ol class="toc__list">
+      <li class="toc__group">
+        <a href="#page=1">Front matter</a>
+        <ol>
+          <li><a href="#page=4">Abstract</a></li>
+          <li><a href="#page=5">Acknowledgment</a></li>
+          <li><a href="#page=6">Table of contents</a></li>
+          <li><a href="#page=9">List of tables</a></li>
+          <li><a href="#page=11">List of figures</a></li>
+          <li><a href="#page=14">Abbreviations</a></li>
+        </ol>
+      </li>
+      <li class="toc__group">
+        <a href="#page=15"><span class="toc__n">Chapter 1</span>Introduction</a>
+        <ol>
+          <li><a href="#page=15">1.1 Background of the study</a></li>
+          <li><a href="#page=17">1.2 Objectives</a></li>
+          <li><a href="#page=19">1.3 Conceptual framework</a></li>
+          <li><a href="#page=21">1.4 Scope and delimitations</a></li>
+          <li><a href="#page=24">1.5 Significance of the study</a></li>
+          <li><a href="#page=27">1.6 Definition of terms</a></li>
+        </ol>
+      </li>
+      <li class="toc__group">
+        <a href="#page=30"><span class="toc__n">Chapter 2</span>Review of related literature</a>
+        <ol>
+          <li><a href="#page=30">2.1 Foreign literature</a></li>
+          <li><a href="#page=38">2.2 Foreign studies</a></li>
+          <li><a href="#page=56">2.3 Local literature</a></li>
+          <li><a href="#page=59">2.4 Local studies</a></li>
+          <li><a href="#page=63">2.5 Synthesis</a></li>
+        </ol>
+      </li>
+      <li class="toc__group">
+        <a href="#page=65"><span class="toc__n">Chapter 3</span>Methodology</a>
+        <ol>
+          <li><a href="#page=65">3.1 Requirements analysis</a></li>
+          <li><a href="#page=73">3.2 Project design</a></li>
+          <li><a href="#page=82">3.3 System architecture</a></li>
+          <li><a href="#page=83">3.4 Development methodology</a></li>
+          <li><a href="#page=85">3.5 Software testing</a></li>
+          <li><a href="#page=87">3.6 Data gathering</a></li>
+          <li><a href="#page=91">3.7 Evaluation procedures</a></li>
+          <li><a href="#page=95">3.8 Statistical treatment</a></li>
+        </ol>
+      </li>
+      <li class="toc__group">
+        <a href="#page=97"><span class="toc__n">Chapter 4</span>Results and discussion</a>
+        <ol>
+          <li><a href="#page=97">4.1 Project description</a></li>
+          <li><a href="#page=98">4.2 Project structure</a></li>
+          <li><a href="#page=114">4.3 Capabilities and limitations</a></li>
+          <li><a href="#page=117">Table 4.1 Hydration level targets</a></li>
+          <li><a href="#page=119">4.4 Project evaluation</a></li>
+          <li><a href="#page=124">Table 4.7 BLE performance</a></li>
+          <li><a href="#page=127">Table 4.10 Hydration classification</a></li>
+          <li><a href="#page=132">Table 4.14 ROC analysis</a></li>
+        </ol>
+      </li>
+      <li class="toc__group">
+        <a href="#page=137"><span class="toc__n">Chapter 5</span>Findings, conclusions and recommendations</a>
+        <ol>
+          <li><a href="#page=137">5.1 Summary of findings</a></li>
+          <li><a href="#page=141">5.2 Conclusions</a></li>
+          <li><a href="#page=142">5.3 Recommendations</a></li>
+        </ol>
+      </li>
+      <li class="toc__group"><a href="#page=146">References</a></li>
+      <li class="toc__group">
+        <a href="#page=157">Appendices</a>
+        <ol>
+          <li><a href="#page=157">A Endorsement letter</a></li>
+          <li><a href="#page=159">B Compliance forms</a></li>
+          <li><a href="#page=177">C Survey questionnaire</a></li>
+          <li><a href="#page=180">D Survey results</a></li>
+          <li><a href="#page=187">E Survey documentation</a></li>
+          <li><a href="#page=196">F Doctor consent form</a></li>
+          <li><a href="#page=197">G Progress reports</a></li>
+          <li><a href="#page=207">H Adviser forms</a></li>
+          <li><a href="#page=213">I Medical validation</a></li>
+          <li><a href="#page=214">J Technical validation</a></li>
+          <li><a href="#page=216">K Urinalysis results of samples</a></li>
+          <li><a href="#page=224">L Samples documentation</a></li>
+          <li><a href="#page=226">M Testing documentation</a></li>
+          <li><a href="#page=228">N Request for amendments</a></li>
+          <li><a href="#page=231">O Development documentation</a></li>
+          <li><a href="#page=235">P Researchers’ profile</a></li>
+        </ol>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="reader__main">
+    <header class="reader__intro">
+      <a class="profile__back" href="./#manuscript">← Silver Swan</a>
+      <h1 class="reader__title">The full study</h1>
+      <p class="reader__thesis">IoT-Based Smart Urinalysis System for Hydration Monitoring, Image Processing and Preliminary Screening Using Fuzzy Logic-Enhanced KNN</p>
+      <p class="doc__meta">PDF · 238 pages · 13.3 MB · FEU Alabang, June 2026</p>
+    </header>
+
+    <div class="rbar" role="toolbar" aria-label="Reader controls">
+      <button class="rbar__btn rbar__toc" type="button" popovertarget="toc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Contents
+      </button>
+      <button class="rbar__btn" type="button" data-step="-1" aria-label="Previous page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <label class="rbar__page">
+        <span class="sr-only">Page</span>
+        <input id="r-page" type="text" inputmode="numeric" autocomplete="off" value="1" size="3" />
+        <span>/ <span id="r-total">238</span></span>
+      </label>
+      <button class="rbar__btn" type="button" data-step="1" aria-label="Next page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <span class="rbar__zoom">
+        <button class="rbar__btn" type="button" data-zoom="-1" aria-label="Zoom out">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+        </button>
+        <output id="r-zoom" aria-live="polite">100%</output>
+        <button class="rbar__btn" type="button" data-zoom="1" aria-label="Zoom in">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+        </button>
+      </span>
+      <a class="rbar__btn rbar__dl" href="PBL3_Manuscript.pdf" download aria-label="Download the PDF">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        <span class="rbar__dl-t">PDF</span>
+      </a>
+    </div>
+
+    <p class="reader__resume" id="r-resume" hidden></p>
+
+    <!-- js/reader.js fills this with one slot per page. Without it (or if the
+         reader fails to load) the message below stays, with a direct link. -->
+    <div class="pages" id="pages">
+      <p class="reader__status" id="r-status">This reader needs JavaScript. <a href="PBL3_Manuscript.pdf">Open the PDF directly</a> instead.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span class="footer__seal" aria-hidden="true"></span>
+    <div class="footer__text">
+      <p class="footer__quote">“Thanks be to God.”</p>
+      <p>FEU Alabang, Bachelor of Science in Computer Science with Specialization in Software Engineering</p>
+      <p>© 2026 Ingal, I. B., Ombrog, X. M. E. N., Sabulao Jr, J. J. C., and Sangkula, C. K. P. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

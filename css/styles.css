@@ -16,6 +16,7 @@
   --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --level:#FFFAD4;           /* the hydration level picked in Fig. 1 (js/main.js) */
   --glow:#E0D462;            /* warm wash behind the hero */
   --glow-a:30%;
   /* the eight hydration levels as one stripe: the site's signature */
@@ -181,6 +182,26 @@ ul,ol{padding:0;list-style:none;}
   text-wrap:balance;
 }
 .hero h1 em{font-style:italic;color:var(--accent);}
+
+/* shared by the hero vial and Fig. 3: liquid in the picked level's colour */
+.liquid{fill:var(--level);transition:fill .45s var(--ease);}
+@media (prefers-reduced-motion:no-preference){
+  .wave{animation:wave 3.2s linear infinite;}
+  .vial__bubble{animation:bubble 4.2s var(--ease) infinite;}
+  .vial__bubble--late{animation-delay:1.9s;}
+}
+@keyframes wave{to{transform:translateX(-40px);}}
+@keyframes bubble{from{transform:translateY(0);opacity:0;}20%{opacity:.9;}to{transform:translateY(-92px);opacity:0;}}
+
+/* hero sample tube, under the headline on wide screens */
+.vial{display:none;width:170px;height:auto;margin-top:36px;overflow:visible;}
+.vial__back{fill:var(--card);}
+.vial__glass{fill:none;stroke:var(--ink-2);stroke-width:2;}
+.vial__rim{fill:var(--card);stroke:var(--ink-2);stroke-width:2;}
+.vial__ticks{stroke:var(--ink-3);stroke-width:1.5;stroke-linecap:round;}
+.vial__bubble{fill:#fff;opacity:0;}
+.vial__lead{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:3 3;}
+.vial__tag{font-family:var(--mono);font-size:13px;fill:var(--ink-2);}
 .hero__sub{font-size:clamp(1.05rem,2.4vw,1.18rem);color:var(--ink-2);max-width:52ch;}
 .hero__demo{
   margin-top:18px;display:inline-flex;align-items:center;gap:10px;
@@ -313,6 +334,35 @@ ul,ol{padding:0;list-style:none;}
 .video__meta a{color:var(--ink-2);text-underline-offset:3px;}
 .video__meta a:hover{color:var(--ink);}
 
+/* system: device schematic (Fig. 3). The inside of the enclosure is matte black in both themes. */
+.diagram{margin-top:36px;}
+.diagram svg{display:block;width:100%;height:auto;overflow:visible;}
+.d-house{fill:var(--card);stroke:var(--ink-2);stroke-width:2;}
+.d-dark{fill:#151513;}
+.d-led{fill:#fffbea;}
+.d-cup{fill:none;stroke:#8b8577;stroke-width:3;}
+.d-probe{fill:#45473f;stroke:#979181;stroke-width:1.5;}
+.d-prong{fill:#b9b3a4;}
+.d-as{fill:#34513d;}
+.d-lens{fill:#d6e0d2;}
+.d-cam{fill:#2c3b4d;}
+.d-cam-lens{fill:#0e1116;stroke:#6b7a8c;stroke-width:3;}
+.d-sight{fill:none;stroke:#979181;stroke-width:1.5;stroke-dasharray:4 5;}
+.d-ble{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-dasharray:1 9;}
+.d-phone{fill:var(--card);stroke:var(--ink-2);stroke-width:2.5;}
+.d-screen{fill:var(--paper);}
+.d-notch{fill:var(--rule-2);}
+.d-swatch{stroke:rgba(28,29,26,.15);}
+.d-ui-k{font-family:var(--mono);font-size:11px;fill:var(--ink-3);}
+.d-ui-v{fill:var(--ink);}
+.d-ui-t{font-family:var(--serif);font-size:15px;fill:var(--ink);}
+.d-ui-rule{stroke:var(--rule);}
+.d-labels{display:none;font-family:var(--mono);font-size:13px;}
+.d-lab-in{fill:#cfc9ba;}
+.d-lab{fill:var(--ink-2);}
+.d-call circle{fill:var(--accent);stroke:var(--paper);stroke-width:3;}
+.d-call text{font-family:var(--mono);font-size:16px;font-weight:500;fill:var(--paper);text-anchor:middle;dominant-baseline:central;}
+
 /* results: headline figures + table */
 .figures{margin-top:32px;display:grid;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);}
 .fig{padding-block:22px;}
@@ -348,6 +398,9 @@ ul,ol{padding:0;list-style:none;}
 .data td:nth-child(2){font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
 .data td:last-child{color:var(--ink-2);padding-right:0;}
 .footnote{margin-top:12px;font-size:.88rem;color:var(--ink-3);}
+.footnote__more,.scale__source a{color:var(--ink-2);text-underline-offset:3px;}
+.footnote__more{white-space:nowrap;}
+.footnote__more:hover,.scale__source a:hover{color:var(--ink);}
 
 /* team */
 .roster{margin-top:32px;display:grid;column-gap:40px;border-top:1px solid var(--rule-2);}
@@ -390,6 +443,12 @@ ul,ol{padding:0;list-style:none;}
   width:100%;background:#fff;filter:var(--cover-filter);
   box-shadow:0 0 0 1px var(--rule-2), 5px 5px 0 0 var(--paper-2), 5px 5px 0 1px var(--rule-2);
 }
+.doc__cover-link{display:block;}
+.doc__cover-link .doc__cover{transition:transform .3s var(--ease),box-shadow .3s var(--ease);}
+.doc__cover-link:hover .doc__cover{
+  transform:translate(-2px,-3px);
+  box-shadow:0 0 0 1px var(--rule-2), 8px 9px 0 0 var(--paper-2), 8px 9px 0 1px var(--rule-2);
+}
 .doc__meta{margin-top:14px;font-family:var(--mono);font-size:.79rem;color:var(--ink-3);}
 .btn{
   display:inline-flex;align-items:center;gap:10px;
@@ -402,8 +461,23 @@ ul,ol{padding:0;list-style:none;}
 .btn:hover{background:var(--ink-2);}
 .btn span{transition:transform .2s var(--ease);}
 .btn:hover span{transform:translate(2px,-2px);}
-.btn-note{margin-top:10px;font-size:.88rem;color:var(--ink-3);}
-.btn-note:empty{display:none;}
+.doc__actions{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;}
+.doc__actions .btn{margin-top:0;}
+.doc__dl{font-size:.95rem;font-weight:500;color:var(--ink-2);text-underline-offset:4px;text-decoration-color:var(--rule-2);}
+.doc__dl:hover{color:var(--ink);text-decoration-color:currentColor;}
+
+.cite{margin-top:32px;padding:16px 18px;background:var(--card);border:1px solid var(--rule-2);border-left:3px solid var(--accent);}
+.cite__head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.cite__label{font-family:var(--mono);font-size:.78rem;color:var(--ink-3);}
+.cite__copy{
+  appearance:none;cursor:pointer;margin:0;padding:5px 12px;
+  font:inherit;font-family:var(--mono);font-size:.78rem;color:var(--ink);
+  background:none;border:1px solid var(--rule-2);border-radius:999px;
+  transition:border-color .2s var(--ease),color .2s var(--ease);
+}
+.cite__copy:hover{border-color:var(--ink-3);}
+.cite__copy.is-done{color:var(--accent);border-color:var(--accent);}
+.cite__text{margin-top:10px;font-family:var(--serif);font-size:1.02rem;line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere;padding-left:1.4em;text-indent:-1.4em;}
 
 /* ---------- profile pages (team/*.html) ---------- */
 /* Phones: sidebar stacks above the resume. Wide screens: two columns, see the 960px query. */
@@ -469,12 +543,128 @@ ul,ol{padding:0;list-style:none;}
 .others__role{display:block;font-family:var(--mono);font-size:.76rem;color:var(--accent);}
 .others__list a:hover .others__name{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
 
+/* ---------- manuscript reader (manuscript.html + js/reader.js) ---------- */
+/* Phones: Contents opens as a sheet from the bottom. Wide screens: a pinned
+   sidebar, see the 960px query. */
+.reader{padding-top:28px;}
+.reader__title{
+  margin-top:20px;font-family:var(--serif);font-weight:400;
+  font-size:clamp(2rem,6vw,2.85rem);line-height:1.05;letter-spacing:-.02em;
+}
+.reader__thesis{margin-top:12px;max-width:60ch;font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-2);}
+
+/* toolbar: pinned under the masthead */
+.rbar{
+  position:sticky;top:var(--head-h);z-index:5;
+  margin-top:24px;padding-block:8px;
+  display:flex;align-items:center;gap:6px;
+  background:var(--paper);border-bottom:1px solid var(--rule-2);
+}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .rbar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+}
+.rbar__btn{
+  appearance:none;cursor:pointer;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  height:36px;min-width:36px;padding:0 9px;margin:0;
+  background:none;color:var(--ink);border:1px solid var(--rule-2);border-radius:2px;
+  font:inherit;font-size:.9rem;font-weight:500;text-decoration:none;
+  transition:border-color .2s var(--ease),background .2s var(--ease);
+}
+.rbar__btn:hover{border-color:var(--ink-3);background:var(--card);}
+.rbar__btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.rbar__page{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.84rem;color:var(--ink-3);white-space:nowrap;}
+.rbar__page input{
+  width:3.3em;height:36px;padding:0;text-align:center;
+  font:inherit;color:var(--ink);background:var(--card);
+  border:1px solid var(--rule-2);border-radius:2px;
+}
+.rbar__zoom{display:none;align-items:center;gap:4px;margin-left:auto;}
+.rbar__zoom output{min-width:3.2em;text-align:center;font-family:var(--mono);font-size:.8rem;color:var(--ink-3);}
+.rbar__dl{margin-left:auto;}
+.rbar__dl-t{display:none;}
+
+.reader__resume{margin-top:14px;}
+.reader__resume-btn{
+  appearance:none;cursor:pointer;margin:0;padding:8px 14px;
+  font:inherit;font-size:.92rem;font-weight:500;color:var(--ink);
+  background:var(--card);border:1px solid var(--accent);border-radius:999px;
+}
+.reader__resume-btn:hover{background:var(--paper-2);}
+.reader__status{padding-block:48px;color:var(--ink-2);}
+
+/* pages: fit the column (up to 880px), times the zoom; wider than the column scrolls sideways */
+.pages{--z:1;margin-top:20px;overflow-x:auto;padding-bottom:4px;}
+.page{
+  position:relative;display:grid;place-items:center;
+  width:calc(min(100%,880px) * var(--z));margin-inline:auto;
+  background:var(--card);box-shadow:0 0 0 1px var(--rule-2),0 10px 28px -16px rgba(0,0,0,.35);
+  scroll-margin-top:38px;
+}
+.page + .page{margin-top:16px;}
+.page canvas{display:block;width:100%;height:auto;filter:var(--cover-filter);}
+.page__n{font-family:var(--mono);font-size:.8rem;color:var(--ink-3);}
+
+/* contents */
+.toc__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--rule-strong);}
+.toc__label{font-family:var(--mono);font-size:.82rem;font-weight:500;color:var(--accent);}
+.toc__close{
+  appearance:none;cursor:pointer;width:34px;height:34px;padding:0;margin:0;
+  display:grid;place-items:center;background:none;color:var(--ink-2);
+  border:1px solid var(--rule-2);border-radius:50%;
+}
+.toc__close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;}
+.toc__group{padding-block:9px;border-bottom:1px solid var(--rule);}
+.toc a{text-decoration:none;}
+.toc__group > a{display:block;font-family:var(--serif);font-size:1.04rem;font-weight:500;line-height:1.3;}
+.toc__n{display:block;font-family:var(--mono);font-size:.72rem;font-weight:400;color:var(--ink-3);}
+.toc__group ol{margin-top:4px;}
+.toc__group ol a{
+  display:block;padding:3px 0 3px 12px;border-left:2px solid transparent;
+  font-size:.88rem;line-height:1.35;color:var(--ink-2);
+}
+.toc a:hover{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+.toc a[aria-current]{color:var(--ink);}
+.toc__group ol a[aria-current]{border-left-color:var(--accent);}
+.toc__group > a[aria-current]{color:var(--accent);}
+
+/* phones: the sheet */
+.toc:popover-open{
+  position:fixed;inset:auto 0 0 0;width:100%;max-width:none;height:auto;max-height:80vh;
+  margin:0;padding:16px var(--gutter) 28px;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--paper);color:var(--ink);
+  border:0;border-top:1px solid var(--rule-strong);
+  box-shadow:0 -16px 40px rgba(0,0,0,.25);
+}
+.toc::backdrop{background:rgba(0,0,0,.4);}
+/* no popover support: the list simply sits above the pages */
+.no-popover .rbar__toc,.no-popover .toc__close{display:none;}
+.no-popover .toc{margin-bottom:28px;}
+
+/* ---------- 404 ---------- */
+.lost{padding-block:56px 16px;}
+.lost__code{font-family:var(--mono);font-size:.82rem;color:var(--accent);}
+.lost__title{
+  margin-top:10px;font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.6rem,9vw,4.6rem);line-height:1;letter-spacing:-.025em;
+}
+.lost__title em{font-style:italic;color:var(--accent);}
+.lost__sub{margin-top:16px;max-width:44ch;color:var(--ink-2);font-size:1.05rem;}
+.lost__scale{margin-block:36px 32px;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px;max-width:620px;}
+.lost__scale i{height:56px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(28,29,26,.1);}
+.lost__gap{
+  display:grid;place-items:center;font-style:normal;font-family:var(--serif);font-size:1.4rem;color:var(--ink-3);
+  background:none !important;box-shadow:none !important;border:1.5px dashed var(--rule-2);
+}
+
 /* footer */
 .footer{position:relative;margin-top:88px;border-top:1px solid var(--rule-strong);}
 .footer::before{content:"";position:absolute;top:-1px;left:0;right:0;height:3px;background:var(--scale);}
 .footer__inner{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;padding-block:26px 44px;}
 .footer__seal{width:84px;height:84px;flex:none;background:var(--logo-badge) center/contain no-repeat;}
 .footer__text{display:grid;gap:6px;font-size:.87rem;color:var(--ink-3);}
+/* Silver Swan's motto */
+.footer__quote{margin-bottom:4px;font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.25;color:var(--ink);}
 
 /* ---------- responsive ---------- */
 @media (min-width:640px){
@@ -491,6 +681,10 @@ ul,ol{padding:0;list-style:none;}
   .cv__list{grid-template-columns:repeat(3,minmax(0,1fr));}
   .cv__skills > div{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:16px;align-items:baseline;}
   .others__list{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .d-labels{display:inline;}
+  .rbar__zoom{display:inline-flex;}
+  .rbar__dl{margin-left:6px;}
+  .rbar__dl-t{display:inline;}
 }
 @media (min-width:760px){
   .nav a:not(.nav__doc){display:inline;}
@@ -499,6 +693,7 @@ ul,ol{padding:0;list-style:none;}
 }
 @media (min-width:960px){
   .hero{padding-top:56px;}
+  .vial{display:block;}
   .hero__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px;align-items:start;margin-top:28px;}
   .frontmatter{margin-top:24px;}
   .scale{margin-top:64px;}
@@ -518,6 +713,15 @@ ul,ol{padding:0;list-style:none;}
   .socials{margin-top:20px;grid-template-columns:minmax(0,1fr);}
   .profile__main{border-left:1px solid var(--rule-2);padding-left:48px;}
   .others__list{grid-template-columns:minmax(0,1fr);}
+  /* reader: Contents becomes a pinned sidebar (overriding the popover's own styles) */
+  .reader{display:grid;grid-template-columns:250px minmax(0,1fr);column-gap:48px;align-items:start;padding-top:40px;}
+  .toc,.toc:popover-open{
+    display:block;position:sticky;inset:auto;top:calc(var(--head-h) + 28px);
+    width:auto;height:auto;max-height:calc(100vh - var(--head-h) - 56px);
+    margin:0;padding:0 10px 0 0;overflow-y:auto;
+    background:none;color:inherit;border:0;box-shadow:none;
+  }
+  .toc__close,.rbar__toc{display:none;}
 }
 /* Pin the sidebar once the window is reasonably tall. A long bio can make it
    taller than the window, so it scrolls within itself in that case and nothing
