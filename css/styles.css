@@ -553,16 +553,13 @@ ul,ol{padding:0;list-style:none;}
 }
 .reader__thesis{margin-top:12px;max-width:60ch;font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-2);}
 
-/* toolbar: pinned under the masthead */
-.rbar{
-  position:sticky;top:var(--head-h);z-index:5;
-  margin-top:24px;padding-block:8px;
-  display:flex;align-items:center;gap:6px;
-  background:var(--paper);border-bottom:1px solid var(--rule-2);
+/* The viewer: toolbar on top, then the pages in their own scrolling pane,
+   about a window tall, so the document scrolls separately from the website. */
+.viewer{
+  margin-top:20px;display:flex;flex-direction:column;
+  height:calc(100vh - var(--head-h) - 32px);height:calc(100dvh - var(--head-h) - 32px);min-height:440px;
 }
-@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .rbar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
-}
+.rbar{flex:none;display:flex;align-items:center;gap:6px;padding-bottom:10px;}
 .rbar__btn{
   appearance:none;cursor:pointer;flex:none;
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
@@ -584,7 +581,7 @@ ul,ol{padding:0;list-style:none;}
 .rbar__dl{margin-left:auto;}
 .rbar__dl-t{display:none;}
 
-.reader__resume{margin-top:14px;}
+.reader__resume{margin-top:18px;}
 .reader__resume-btn{
   appearance:none;cursor:pointer;margin:0;padding:8px 14px;
   font:inherit;font-size:.92rem;font-weight:500;color:var(--ink);
@@ -594,13 +591,25 @@ ul,ol{padding:0;list-style:none;}
 .reader__status{padding-block:48px;color:var(--ink-2);}
 
 /* pages: fit the column (up to 880px), times the zoom; wider than the column scrolls sideways */
-.pages{--z:1;margin-top:20px;overflow-x:auto;padding-bottom:4px;}
+.pages{
+  --z:1;position:relative;flex:1;min-height:0;overflow:auto;padding:16px;
+  background:var(--paper-2);border:1px solid var(--rule-2);border-radius:2px;
+  scrollbar-width:thin;scrollbar-color:var(--rule-2) transparent;
+}
+.pages:focus-visible{outline-offset:-2px;}
 .page{
   position:relative;display:grid;place-items:center;
   width:calc(min(100%,880px) * var(--z));margin-inline:auto;
   background:var(--card);box-shadow:0 0 0 1px var(--rule-2),0 10px 28px -16px rgba(0,0,0,.35);
-  scroll-margin-top:38px;
 }
+/* a soft shimmer while a page loads */
+@media (prefers-reduced-motion:no-preference){
+  .page:not(.is-drawn){
+    background:linear-gradient(100deg,var(--card) 40%,var(--paper) 50%,var(--card) 60%) 0 0/300% 100%;
+    animation:shimmer 1.6s linear infinite;
+  }
+}
+@keyframes shimmer{from{background-position:100% 0;}to{background-position:0 0;}}
 .page + .page{margin-top:16px;}
 .page canvas{display:block;width:100%;height:auto;filter:var(--cover-filter);}
 .page__n{font-family:var(--mono);font-size:.8rem;color:var(--ink-3);}
@@ -722,6 +731,7 @@ ul,ol{padding:0;list-style:none;}
     background:none;color:inherit;border:0;box-shadow:none;
   }
   .toc__close,.rbar__toc{display:none;}
+  .pages{overscroll-behavior:contain;}
 }
 /* Pin the sidebar once the window is reasonably tall. A long bio can make it
    taller than the window, so it scrolls within itself in that case and nothing

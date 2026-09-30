@@ -26,6 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="modulepreload" href="js/vendor/pdfjs-4.10.38/pdf.min.mjs" />
 <script type="module" src="js/reader.js"></script>
 </head>
 <body>
@@ -161,44 +162,47 @@
       <p class="doc__meta">PDF · 238 pages · 13.3 MB · FEU Alabang, June 2026</p>
     </header>
 
-    <div class="rbar" role="toolbar" aria-label="Reader controls">
-      <button class="rbar__btn rbar__toc" type="button" popovertarget="toc">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-        Contents
-      </button>
-      <button class="rbar__btn" type="button" data-step="-1" aria-label="Previous page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <label class="rbar__page">
-        <span class="sr-only">Page</span>
-        <input id="r-page" type="text" inputmode="numeric" autocomplete="off" value="1" size="3" />
-        <span>/ <span id="r-total">238</span></span>
-      </label>
-      <button class="rbar__btn" type="button" data-step="1" aria-label="Next page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-      </button>
-      <span class="rbar__zoom">
-        <button class="rbar__btn" type="button" data-zoom="-1" aria-label="Zoom out">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
-        </button>
-        <output id="r-zoom" aria-live="polite">100%</output>
-        <button class="rbar__btn" type="button" data-zoom="1" aria-label="Zoom in">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
-        </button>
-      </span>
-      <a class="rbar__btn rbar__dl" href="PBL3_Manuscript.pdf" download aria-label="Download the PDF">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-        <span class="rbar__dl-t">PDF</span>
-      </a>
-    </div>
-
     <p class="reader__resume" id="r-resume" hidden></p>
 
-    <!-- js/reader.js fills this with one slot per page. Without it (or if the
-         reader fails to load) the message below stays, with a direct link. -->
-    <div class="pages" id="pages">
-      <p class="reader__status" id="r-status">This reader needs JavaScript. <a href="PBL3_Manuscript.pdf">Open the PDF directly</a> instead.</p>
-    </div>
+    <!-- The document scrolls inside its own pane (#pages), separately from the website. -->
+    <section class="viewer" aria-label="Manuscript reader">
+      <div class="rbar" role="toolbar" aria-label="Reader controls">
+        <button class="rbar__btn rbar__toc" type="button" popovertarget="toc">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          Contents
+        </button>
+        <button class="rbar__btn" type="button" data-step="-1" aria-label="Previous page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <label class="rbar__page">
+          <span class="sr-only">Page</span>
+          <input id="r-page" type="text" inputmode="numeric" autocomplete="off" value="1" size="3" />
+          <span>/ <span id="r-total">238</span></span>
+        </label>
+        <button class="rbar__btn" type="button" data-step="1" aria-label="Next page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <span class="rbar__zoom">
+          <button class="rbar__btn" type="button" data-zoom="-1" aria-label="Zoom out">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+          </button>
+          <output id="r-zoom" aria-live="polite">100%</output>
+          <button class="rbar__btn" type="button" data-zoom="1" aria-label="Zoom in">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+          </button>
+        </span>
+        <a class="rbar__btn rbar__dl" href="PBL3_Manuscript.pdf" download aria-label="Download the PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          <span class="rbar__dl-t">PDF</span>
+        </a>
+      </div>
+
+      <!-- js/reader.js fills this with one slot per page. Without it (or if the
+           reader fails to load) the message below stays, with a direct link. -->
+      <div class="pages" id="pages" tabindex="0" aria-label="Manuscript pages">
+        <p class="reader__status" id="r-status">This reader needs JavaScript. <a href="PBL3_Manuscript.pdf">Open the PDF directly</a> instead.</p>
+      </div>
+    </section>
   </div>
 </main>
 

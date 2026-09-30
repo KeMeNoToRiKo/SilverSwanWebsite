@@ -95,11 +95,26 @@ box to jump to any page, zoom, and a PDF download. The page in the address
 updates as you read (`/manuscript#page=117`), so any page can be linked or
 shared, and a returning visitor is offered "Continue from page N".
 
+- **Its own scroll pane:** the pages scroll inside a framed pane about one
+  window tall (`.viewer` / `.pages` in `css/styles.css`), so reading the
+  document and scrolling the website are separate. You can scroll down to the
+  footer and the document stays on its page. On wide screens, scrolling past the
+  first or last page doesn't drag the website along. On phones it does, so a
+  thumb that reaches the end carries on to the footer.
 - **How it loads:** `js/reader.js` draws pages with PDF.js (self-hosted in
-  `js/vendor/`, loaded only on this page). It fetches the PDF in pieces, only
-  around the pages being read, so opening it costs about half a megabyte rather
-  than the full 13 MB. Without JavaScript, or if it fails, the page shows a direct
-  link to the PDF instead.
+  `js/vendor/`, loaded only on this page) and fetches the PDF in pieces:
+  - Only pages on or near the pane's screen are drawn. The page being read
+    draws first, then its neighbors, two at a time. Pages skipped past quickly
+    are never drawn.
+  - When nothing is drawing, the next 3 pages in the reading direction (and 1
+    behind) are fetched ahead but not drawn, so turning to them needs no
+    network. Skipped when the browser asks to save data.
+  - Drawn pages more than 6 away from the current one are freed to save memory.
+  - These numbers are `AT_ONCE`, `AHEAD`, `BEHIND` and `KEEP` at the top of
+    `js/reader.js`.
+
+  Opening it costs about half a megabyte rather than the full 13 MB. Without
+  JavaScript, or if it fails, the page shows a direct link to the PDF instead.
 - **Contents page numbers** are PDF pages, not the printed ones: printed page N
   is PDF page N + 14 (Chapter 1 starts on PDF page 15). The list is plain links
   in `manuscript.html` (`href="#page=N"`). The home page also links into it: the
