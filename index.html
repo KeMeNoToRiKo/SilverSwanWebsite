@@ -7,6 +7,18 @@
 <meta name="description" content="A portable, offline, multi-modal urinalysis device for hydration monitoring and preliminary screening, powered by Enhanced Fuzzy k-Nearest Neighbors. FEU Alabang capstone research." />
 <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)" />
+<link rel="canonical" href="https://silver-swan-website.vercel.app/" />
+<!-- link previews (Messenger, Facebook, LinkedIn, X, iMessage) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Team Silver Swan" />
+<meta property="og:title" content="IoT-Based Smart Urinalysis System — Team Silver Swan" />
+<meta property="og:description" content="A portable, offline device that measures urine pH, specific gravity and color, then classifies hydration on a paired phone app. FEU Alabang capstone research." />
+<meta property="og:url" content="https://silver-swan-website.vercel.app/" />
+<meta property="og:image" content="https://silver-swan-website.vercel.app/images/demo-poster.jpg" />
+<meta property="og:image:width" content="1280" />
+<meta property="og:image:height" content="720" />
+<meta property="og:image:alt" content="The Silver Swan urinalysis device showing its application readings" />
+<meta name="twitter:card" content="summary_large_image" />
 <script src="js/theme.js"></script>
 <script src="js/arrival.js"></script>
 <link rel="icon" href="images/favicon-32.png" sizes="32x32" />
@@ -53,7 +65,7 @@
       </p>
 
       <div class="hero__grid">
-        <h1>An objective alternative to reading urine color by eye.</h1>
+        <h1>An objective alternative to reading urine color <em>by eye</em>.</h1>
 
         <div>
           <p class="hero__sub">A portable, offline device that measures the pH, specific gravity and color of a urine sample inside a sealed optical chamber, then classifies hydration on a paired phone app.</p>
@@ -174,24 +186,28 @@
 
         <ol class="stages">
           <li class="stage">
+            <span class="stage__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="13.5" rx="1.5"/><path d="M9 3.5h6M12 3.5V7M9 16.5a3 3 0 0 1 6 0"/></svg></span>
             <p class="stage__n">Stage 1</p>
             <h3>Controlled enclosure</h3>
             <p class="stage__d">A custom-integrated opaque housing with a matte-black interior and controlled white illumination, so ambient light never reaches the sample.</p>
             <p class="stage__parts">Matte-black interior · Fixed white light</p>
           </li>
           <li class="stage">
+            <span class="stage__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.3 5.3a9.5 9.5 0 0 0 0 13.4M18.7 5.3a9.5 9.5 0 0 1 0 13.4"/></svg></span>
             <p class="stage__n">Stage 2</p>
             <h3>Multi-modal sensing</h3>
             <p class="stage__d">A digital pH sensor, an analog TDS sensor for specific gravity, an AS7341 11-channel visible light sensor, and an ESP32 camera read the sample together.</p>
             <p class="stage__parts">pH · TDS / SG · AS7341 · ESP32-CAM</p>
           </li>
           <li class="stage">
+            <span class="stage__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2"/><path d="M10.5 18.5h3M9.5 7.5l5 5-2.5 2V5.5l2.5 2-5 5"/></svg></span>
             <p class="stage__n">Stage 3</p>
             <h3>Offline mobile app</h3>
             <p class="stage__d">Readings transmit over Bluetooth Low Energy to a localized mobile application that stores and interprets results on the phone itself.</p>
             <p class="stage__parts">BLE · Local storage · No internet</p>
           </li>
           <li class="stage">
+            <span class="stage__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="1.8"/><circle cx="19" cy="7" r="1.8"/><circle cx="7" cy="19" r="1.8"/><path d="M6.4 7.2l3.8 3.2M17.4 7.9l-3.3 2.8M8.3 17.7l2-3.6"/></svg></span>
             <p class="stage__n">Stage 4</p>
             <h3>EF-KNN classification</h3>
             <p class="stage__d">An Enhanced Fuzzy k-Nearest Neighbors algorithm weighs each neighbor by membership rather than a hard vote, assigning a hydration level and raising abnormality flags.</p>
@@ -217,16 +233,20 @@
             <p class="fig__n">100.00%</p>
             <p class="fig__t">Hydration classification accuracy</p>
             <p class="fig__d">All eight hydration levels classified correctly at k&nbsp;=&nbsp;3, with a macro-averaged AUC of 1.0000.</p>
+            <div class="meter" aria-hidden="true"><span style="--v:100%"></span></div>
           </div>
           <div class="fig">
             <p class="fig__n">99.33%</p>
             <p class="fig__t">BLE transmission success rate</p>
             <p class="fig__d">Sensor-to-phone delivery held across the full trial set, with a mean end-to-end latency of 8,576.51 ms.</p>
+            <div class="meter" aria-hidden="true"><span style="--v:99.33%"></span></div>
           </div>
           <div class="fig">
             <p class="fig__n">130</p>
             <p class="fig__t">ISO 25010 respondents</p>
             <p class="fig__d">100 general end-users and 30 subject matter experts rated the software 4.37 and 4.42 overall, both “Agree”.</p>
+            <p class="meter__key" aria-hidden="true"><span>100 end-users</span><span>30 experts</span></p>
+            <div class="meter" aria-hidden="true"><span style="--v:100%"><i style="flex:100"></i><i style="flex:30"></i></span></div>
           </div>
         </div>
 
@@ -237,8 +257,8 @@
               <tr><th scope="col">Measure</th><th scope="col">Result</th><th scope="col">Note</th></tr>
             </thead>
             <tbody>
-              <tr><th scope="row">pH sensor error (MAPE)</th><td>7.72%</td><td>Within the 10% threshold, p&nbsp;=&nbsp;0.0937</td></tr>
-              <tr><th scope="row">Specific gravity sensor error (MAPE)</th><td>0.13%</td><td>Within the 10% threshold, p&nbsp;=&nbsp;0.8843</td></tr>
+              <tr><th scope="row">pH sensor error (MAPE)</th><td>7.72%<span class="limit" aria-hidden="true"><span style="--v:77.2%"></span></span></td><td>Within the 10% threshold, p&nbsp;=&nbsp;0.0937</td></tr>
+              <tr><th scope="row">Specific gravity sensor error (MAPE)</th><td>0.13%<span class="limit" aria-hidden="true"><span style="--v:1.3%"></span></span></td><td>Within the 10% threshold, p&nbsp;=&nbsp;0.8843</td></tr>
               <tr><th scope="row">Abnormality screening accuracy</th><td>88.00%</td><td>Every high-pH and low-pH case detected</td></tr>
               <tr><th scope="row">Independent validation trials</th><td>150</td><td>Synthetic urine, 8 hydration levels, 4 abnormality classes</td></tr>
             </tbody>

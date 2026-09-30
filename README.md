@@ -40,24 +40,23 @@ The URL it prints is what the RFID card should point to.
 
 ## Point the RFID card at it
 
-Vercel gives you something like `silver-swan.vercel.app`. Write that URL to the
-NFC/RFID tag as a URL record, with `?via=rfid` on the end. Add a custom domain
+The site is live at `https://silver-swan-website.vercel.app`. Write that URL to
+the NFC/RFID tag as a URL record, with `?via=rfid` on the end. Add a custom domain
 under Project → Settings → Domains if you want something shorter to read out
-loud during the defense.
+loud during the defense (then see "Link previews" below).
 
 ## RFID, QR code or typed link
 
 The greeting at the top of the page changes with how the visitor got there. The
 card and the QR code each carry their own tag on the end of the address:
 
-| Way in        | Address to use                             | Greeting                                      |
-| ------------- | ------------------------------------------ | --------------------------------------------- |
-| RFID card     | `https://silver-swan.vercel.app/?via=rfid` | You tapped the Silver Swan card. Welcome.     |
-| QR code       | `https://silver-swan.vercel.app/?via=qr`   | You scanned the Silver Swan QR code. Welcome. |
-| Anything else | `https://silver-swan.vercel.app`           | You found your way to Silver Swan. Welcome.   |
+| Way in        | Address to use                                     | Greeting                                      |
+| ------------- | -------------------------------------------------- | --------------------------------------------- |
+| RFID card     | `https://silver-swan-website.vercel.app/?via=rfid` | You tapped the Silver Swan card. Welcome.     |
+| QR code       | `https://silver-swan-website.vercel.app/?via=qr`   | You scanned the Silver Swan QR code. Welcome. |
+| Anything else | `https://silver-swan-website.vercel.app`           | You found your way to Silver Swan. Welcome.   |
 
-Use your real domain in place of `silver-swan.vercel.app`, and point both at the
-home page (`/`), not `/index.html`.
+Point both at the home page (`/`), not `/index.html`.
 
 - **How it works:** `js/arrival.js` reads the `via` tag, then removes it from the
   address bar so a link copied from there gets the plain greeting instead of
@@ -69,6 +68,20 @@ home page (`/`), not `/index.html`.
 - **Editing the wording:** the three lines are the `<span data-arrival="…">`
   elements inside `.hero__kicker` in `index.html`. Without JavaScript the
   "Anything else" line shows.
+
+## Link previews
+
+When the site is shared in Messenger, Facebook, LinkedIn, X or iMessage, the
+card shows a title, description and image, set by the `og:` and `twitter:` tags
+in each page's `<head>`. The home page uses the demo video thumbnail
+(`images/demo-poster.jpg`); each profile uses that member's photo. These tags
+need full addresses, so they spell out `https://silver-swan-website.vercel.app`,
+as does each page's `canonical` link. If you move to a custom domain, replace it
+in `index.html` and the four files in `team/`.
+
+Platforms cache previews. After changing them, re-scrape with Facebook's
+[Sharing Debugger](https://developers.facebook.com/tools/debug/) or LinkedIn's
+[Post Inspector](https://www.linkedin.com/post-inspector/).
 
 ## Changing the manuscript link
 
@@ -133,8 +146,9 @@ Appendix P (Researchers Profile) of the manuscript.
   bottom of the other three profiles, so change those too.
 - **Profile layout:** on wide screens the photo, bio and socials sit in a sidebar
   that stays pinned while the resume scrolls. It only pins on windows at least
-  760px tall, sized to fit the longest bio. If a bio gets much longer, raise
-  that number in the `min-height` media query at the bottom of `css/styles.css`.
+  640px tall; if a bio is taller than the window, the sidebar scrolls on its own.
+  To change that cut-off, edit the `min-height` media query near the bottom of
+  `css/styles.css`.
 - **Clickable cards:** the name on each home page card is wrapped in
   `<a class="member__link">`. That link makes the whole card the click target
   and adds the hover arrow; remove it and the card goes back to plain text.
@@ -167,6 +181,30 @@ variables at the top of `css/styles.css`, so swapping artwork means replacing th
 PNGs or pointing those variables somewhere else. The ring lettering is too small
 to read at header size, which is why the header uses the swan on its own.
 
+## Visual details
+
+Everything here is plain CSS plus a few lines in `js/main.js`, with no libraries.
+
+- **Hydration stripe:** the eight scale colors as one gradient, `--scale` at the
+  top of `css/styles.css`. It runs along the footer's top edge and, as a scroll
+  progress bar, along the bottom of the header.
+- **Sticky header:** stays pinned and frosted while scrolling. Its height is
+  `--head-h`, which also offsets anchor jumps, the sticky section labels and the
+  profile sidebar so nothing slides under it. Change it if the header's height changes.
+- **Scroll motion:** blocks rise in, bars fill, and the progress stripe grows,
+  all through CSS scroll-driven animations. Browsers without them (Firefox for
+  now) and visitors with reduced motion turned on get the static page with every
+  bar drawn at full value.
+- **Results bars:** each bar's length is the `--v` on its inner `<span>` in
+  `index.html`. The table bars show sensor error against the 10% limit (right
+  edge = 10%), so 7.72% is `--v:77.2%`. Keep them in step with the numbers.
+- **Count-up:** `js/main.js` counts the three headline figures up from zero the
+  first time they scroll into view, reading the target from the text itself.
+- **Nav highlight:** the header link for the section in view is underlined in
+  the accent color (`aria-current`, set in `js/main.js`).
+- **Hydration scale keys:** after tabbing to a level, arrow keys, Home and End
+  move between levels.
+
 ## Light and dark theme
 
 The site follows the visitor's system setting (light or dark) by default. The
@@ -177,6 +215,8 @@ clears the saved choice, so the site follows the system again.
 - **Colors:** both palettes are the variables at the top of `css/styles.css`. The
   dark palette appears twice there (once for "system is dark", once for "visitor
   picked dark"), so edit both blocks together.
+- **Hero glow:** the warm wash behind the headline is `--glow` / `--glow-a`
+  (color and strength), set per theme.
 - **New pages** need the same two lines in `<head>` as the existing ones:
   `<script src="js/theme.js"></script>` (no `defer`, so there is no flash of the
   wrong theme) and the stylesheet, plus the `theme-toggle` button in the header.

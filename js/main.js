@@ -36,6 +36,64 @@ swatches.forEach(s => {
 });
 select(1);
 
+// arrow keys, Home and End step through the levels
+const STEP = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 };
+document.querySelector(".swatches").addEventListener("keydown", e => {
+  const i = swatches.indexOf(document.activeElement);
+  if (i < 0) return;
+  let next;
+  if (e.key in STEP) next = Math.min(Math.max(i + STEP[e.key], 0), swatches.length - 1);
+  else if (e.key === "Home") next = 0;
+  else if (e.key === "End") next = swatches.length - 1;
+  else return;
+  e.preventDefault();
+  swatches[next].focus();
+  select(next);
+});
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Nav: mark the link for the section crossing the middle of the window. */
+const navLinks = new Map();
+document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
+  const section = document.querySelector(a.hash);
+  if (section) navLinks.set(section, a);
+});
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const a = navLinks.get(entry.target);
+    if (entry.isIntersecting) a.setAttribute("aria-current", "true");
+    else a.removeAttribute("aria-current");
+  });
+}, { rootMargin: "-45% 0px -54% 0px" });
+navLinks.forEach((a, section) => spy.observe(section));
+
+/* Results: the headline figures count up from zero the first time they're seen.
+   The real value is in the HTML, so without JavaScript nothing changes. */
+if (!reduceMotion) {
+  const counter = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      counter.unobserve(entry.target);
+      const node = entry.target;
+      const text = node.textContent;
+      const [, num, unit] = text.match(/^([\d.]+)(.*)$/) || [];
+      if (!num) return;
+      const target = Number(num);
+      const places = (num.split(".")[1] || "").length;
+      const start = performance.now();
+      const tick = now => {
+        const t = Math.min((now - start) / 1200, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        node.textContent = t < 1 ? (target * eased).toFixed(places) + unit : text;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  });
+  document.querySelectorAll(".fig__n").forEach(n => counter.observe(n));
+}
+
 const btn = el("manuscript-btn");
 if (MANUSCRIPT_URL) {
   btn.href = MANUSCRIPT_URL;
