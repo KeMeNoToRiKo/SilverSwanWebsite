@@ -9,6 +9,7 @@ silver-swan-site/
 │   └── styles.css       all styles
 ├── js/
 │   ├── main.js          hydration scale + manuscript button (home page only)
+│   ├── arrival.js       RFID / QR / link greeting (home page only)
 │   └── theme.js         light/dark toggle (every page)
 ├── team/                one profile page per member (resume + socials)
 ├── images/
@@ -40,8 +41,34 @@ The URL it prints is what the RFID card should point to.
 ## Point the RFID card at it
 
 Vercel gives you something like `silver-swan.vercel.app`. Write that URL to the
-NFC/RFID tag as a URL record. Add a custom domain under Project → Settings →
-Domains if you want something shorter to read out loud during the defense.
+NFC/RFID tag as a URL record, with `?via=rfid` on the end. Add a custom domain
+under Project → Settings → Domains if you want something shorter to read out
+loud during the defense.
+
+## RFID, QR code or typed link
+
+The greeting at the top of the page changes with how the visitor got there. The
+card and the QR code each carry their own tag on the end of the address:
+
+| Way in        | Address to use                             | Greeting                                      |
+| ------------- | ------------------------------------------ | --------------------------------------------- |
+| RFID card     | `https://silver-swan.vercel.app/?via=rfid` | You tapped the Silver Swan card. Welcome.     |
+| QR code       | `https://silver-swan.vercel.app/?via=qr`   | You scanned the Silver Swan QR code. Welcome. |
+| Anything else | `https://silver-swan.vercel.app`           | You found your way to Silver Swan. Welcome.   |
+
+Use your real domain in place of `silver-swan.vercel.app`, and point both at the
+home page (`/`), not `/index.html`.
+
+- **How it works:** `js/arrival.js` reads the `via` tag, then removes it from the
+  address bar so a link copied from there gets the plain greeting instead of
+  "you tapped the card". The page remembers the answer for that browser tab, so a
+  reload or a trip to a profile and back keeps the right greeting.
+- **Typed vs. shared links:** a visit with no tag could be a typed address, a
+  bookmark or a link someone sent, and a browser can't tell those apart. That's
+  why the third greeting doesn't say which one it was.
+- **Editing the wording:** the three lines are the `<span data-arrival="…">`
+  elements inside `.hero__kicker` in `index.html`. Without JavaScript the
+  "Anything else" line shows.
 
 ## Changing the manuscript link
 

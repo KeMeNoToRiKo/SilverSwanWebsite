@@ -130,6 +130,12 @@ ul,ol{padding:0;list-style:none;}
   content:"";width:10px;height:10px;flex:none;
   background:#E0D462;box-shadow:inset 0 0 0 1px rgba(28,29,26,.3);
 }
+/* greeting that matches how the visitor arrived (js/arrival.js); "link" without JS */
+.hero__kicker [data-arrival]{display:none;}
+:root:not([data-arrival]) .hero__kicker [data-arrival="link"],
+:root[data-arrival="rfid"] .hero__kicker [data-arrival="rfid"],
+:root[data-arrival="qr"] .hero__kicker [data-arrival="qr"],
+:root[data-arrival="link"] .hero__kicker [data-arrival="link"]{display:inline;}
 .hero__grid{display:grid;gap:22px;margin-top:22px;}
 .hero h1{
   font-family:var(--serif);font-weight:400;

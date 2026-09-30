@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)" />
 <script src="js/theme.js"></script>
+<script src="js/arrival.js"></script>
 <link rel="icon" href="images/favicon-32.png" sizes="32x32" />
 <link rel="apple-touch-icon" href="images/favicon-180.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +44,13 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <p class="hero__kicker">You tapped the Silver Swan card. Welcome.</p>
+      <!-- One line per way in; js/arrival.js picks which one shows. Without
+           JavaScript the "link" line shows. -->
+      <p class="hero__kicker">
+        <span data-arrival="rfid">You tapped the Silver Swan card. Welcome.</span>
+        <span data-arrival="qr">You scanned the Silver Swan QR code. Welcome.</span>
+        <span data-arrival="link">You found your way to Silver Swan. Welcome.</span>
+      </p>
 
       <div class="hero__grid">
         <h1>An objective alternative to reading urine color by eye.</h1>
