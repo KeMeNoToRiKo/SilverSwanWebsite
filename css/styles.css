@@ -69,6 +69,11 @@
   --glow-a:14%;
 }
 
+/* Lite mode: js/theme.js puts class="lite" on <html> for low-end phones and
+   data-saver visitors. Every continuous effect below (header blur, scroll
+   motion, looping animations, loading shimmer) is written as
+   :root:not(.lite) …, so lite devices get the same design, held still. */
+
 /* switching themes cross-fades where the browser supports view transitions (see js/theme.js) */
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.35s;}
 
@@ -100,7 +105,7 @@ ul,ol{padding:0;list-style:none;}
 /* stays pinned while scrolling; frosted where the browser can blur behind it */
 .masthead{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule-strong);}
 @supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .masthead{
+  :root:not(.lite) .masthead{
     background:color-mix(in srgb,var(--paper) 84%,transparent);
     -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   }
@@ -110,7 +115,7 @@ ul,ol{padding:0;list-style:none;}
    Only where scroll-driven animations exist; elsewhere the plain rule stays. */
 @supports (animation-timeline:scroll()){
   @media (prefers-reduced-motion:no-preference){
-    .masthead::after{
+    :root:not(.lite) .masthead::after{
       content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;
       background:var(--scale);transform-origin:0 50%;
       animation:grow linear both;animation-timeline:scroll(root);
@@ -186,10 +191,12 @@ ul,ol{padding:0;list-style:none;}
 /* shared by the hero vial and Fig. 3: liquid in the picked level's colour */
 .liquid{fill:var(--level);transition:fill .45s var(--ease);}
 @media (prefers-reduced-motion:no-preference){
-  .wave{animation:wave 3.2s linear infinite;}
-  .vial__bubble{animation:bubble 4.2s var(--ease) infinite;}
+  :root:not(.lite) .wave{animation:wave 3.2s linear infinite;}
+  :root:not(.lite) .vial__bubble{animation:bubble 4.2s var(--ease) infinite;}
   .vial__bubble--late{animation-delay:1.9s;}
 }
+/* loops only run while on screen (js/main.js toggles .is-paused) */
+.is-paused .wave,.is-paused .vial__bubble{animation-play-state:paused;}
 @keyframes wave{to{transform:translateX(-40px);}}
 @keyframes bubble{from{transform:translateY(0);opacity:0;}20%{opacity:.9;}to{transform:translateY(-92px);opacity:0;}}
 
@@ -598,20 +605,20 @@ ul,ol{padding:0;list-style:none;}
 }
 .pages:focus-visible{outline-offset:-2px;}
 .page{
-  position:relative;display:grid;place-items:center;
+  position:relative;display:grid;place-items:center;aspect-ratio:612 / 792;   /* US Letter */
   width:calc(min(100%,880px) * var(--z));margin-inline:auto;
   background:var(--card);box-shadow:0 0 0 1px var(--rule-2),0 10px 28px -16px rgba(0,0,0,.35);
 }
-/* a soft shimmer while a page loads */
+/* a soft shimmer only while a page's image is downloading */
 @media (prefers-reduced-motion:no-preference){
-  .page:not(.is-drawn){
+  :root:not(.lite) .page.is-loading{
     background:linear-gradient(100deg,var(--card) 40%,var(--paper) 50%,var(--card) 60%) 0 0/300% 100%;
     animation:shimmer 1.6s linear infinite;
   }
 }
 @keyframes shimmer{from{background-position:100% 0;}to{background-position:0 0;}}
 .page + .page{margin-top:16px;}
-.page canvas{display:block;width:100%;height:auto;filter:var(--cover-filter);}
+.page img{position:absolute;inset:0;width:100%;height:100%;filter:var(--cover-filter);}
 .page__n{font-family:var(--mono);font-size:.8rem;color:var(--ink-3);}
 
 /* contents */
@@ -749,10 +756,10 @@ ul,ol{padding:0;list-style:none;}
    without scroll-driven animations (and reduced-motion visitors) get it static. */
 @supports (animation-timeline:view()){
   @media (prefers-reduced-motion:no-preference){
-    .section__body > :not(.stages,.figures,.roster),.stage,.fig,.member{
+    :root:not(.lite) :is(.section__body > :not(.stages,.figures,.roster),.stage,.fig,.member){
       animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%;
     }
-    .meter > span,.limit > span{
+    :root:not(.lite) :is(.meter > span,.limit > span){
       animation:grow linear both;animation-timeline:view();animation-range:entry 30% cover 40%;
     }
   }

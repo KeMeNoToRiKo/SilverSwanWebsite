@@ -13,8 +13,7 @@ silver-swan-site/
 │   ├── main.js          hydration scale, nav highlight, citation (home page only)
 │   ├── arrival.js       RFID / QR / link greeting (home page only)
 │   ├── reader.js        manuscript reader (manuscript.html only)
-│   ├── theme.js         light/dark toggle (every page)
-│   └── vendor/pdfjs-*/  PDF.js, Mozilla's PDF renderer (reader only)
+│   └── theme.js         light/dark toggle + lite mode (every page)
 ├── team/                one profile page per member (resume + socials)
 ├── images/
 │   ├── team/            one square portrait per member
@@ -22,9 +21,13 @@ silver-swan-site/
 │   ├── logo-*.png       swan logo: header mark + footer badge, light and dark
 │   ├── favicon-*.png    browser tab and home-screen icons
 │   ├── demo-poster*.jpg thumbnail shown before the demo video plays
+│   ├── manuscript/      every manuscript page as WebP, for the reader
 │   └── manuscript-cover.png
+├── tools/
+│   └── render-pages.mjs makes images/manuscript/ from the PDF (not deployed)
 ├── PBL3_Manuscript.pdf  served at /PBL3_Manuscript.pdf
-└── vercel.json          tells Vercel this is a static site
+├── vercel.json          tells Vercel this is a static site
+└── .vercelignore        keeps tools/ out of deploys
 ```
 
 ## Deploy (drag and drop, no Git)
@@ -101,37 +104,35 @@ shared, and a returning visitor is offered "Continue from page N".
   footer and the document stays on its page. On wide screens, scrolling past the
   first or last page doesn't drag the website along. On phones it does, so a
   thumb that reaches the end carries on to the footer.
-- **How it loads:** `js/reader.js` draws pages with PDF.js (self-hosted in
-  `js/vendor/`, loaded only on this page) and fetches the PDF in pieces:
-  - Only pages on or near the pane's screen are drawn. The page being read
-    draws first, then its neighbors, two at a time. Pages skipped past quickly
-    are never drawn.
-  - When nothing is drawing, the next 3 pages in the reading direction (and 1
-    behind) are fetched ahead but not drawn, so turning to them needs no
-    network. Skipped when the browser asks to save data.
-  - Drawn pages more than 6 away from the current one are freed to save memory.
-  - These numbers are `AT_ONCE`, `AHEAD`, `BEHIND` and `KEEP` at the top of
-    `js/reader.js`.
+- **How it loads:** every page was rendered once, ahead of time, to a WebP
+  image in `images/manuscript/` (`045-800.webp` and `045-1400.webp`), so the
+  phone only shows pictures. There's no PDF engine to download or run, which is
+  what made the old reader slow on budget phones.
+  - Only pages on or near the pane's screen get their image: about two screens
+    ahead and one behind, less in lite mode.
+  - The browser picks the 800px file on phones and the 1400px one on large or
+    zoomed screens.
+  - Images more than 10 pages from the current one are dropped again (`KEEP` at
+    the top of `js/reader.js`), so a long read can't fill a small phone's memory.
 
-  Opening it costs about half a megabyte rather than the full 13 MB. Without
-  JavaScript, or if it fails, the page shows a direct link to the PDF instead.
+  Without JavaScript the page shows a direct link to the PDF instead.
 - **Contents page numbers** are PDF pages, not the printed ones: printed page N
   is PDF page N + 14 (Chapter 1 starts on PDF page 15). The list is plain links
   in `manuscript.html` (`href="#page=N"`). The home page also links into it: the
   Table 4.1 link under Fig. 1 and "Full evaluation in Chapter 4" under Results.
-- **Replacing the PDF:** keep the name `PBL3_Manuscript.pdf`, then check the
-  Contents page numbers and the page count and size shown in `index.html` and
-  `manuscript.html`. The PDF was re-saved with its small internal objects packed
-  together ("object streams"). Page content is unchanged, but it lets the reader
-  open without scanning the whole file. A PDF exported straight from Word is laid
-  out so the reader must fetch several MB before showing page 1. To repack a new
-  export the same way: `qpdf --object-streams=generate in.pdf PBL3_Manuscript.pdf`,
-  or open and save it with the `pdf-lib` npm package using `useObjectStreams: true`.
-- **Updating PDF.js:** put the new `pdf.min.mjs` and `pdf.worker.min.mjs` from
-  the `pdfjs-dist` package's `legacy/build/` folder (the legacy build also runs
-  on older phones) in a new `js/vendor/pdfjs-<version>/` folder, and change the
-  two paths at the top of `js/reader.js`. `vercel.json` caches that folder for a
-  year, which is why the version is in the folder name.
+- **Replacing the PDF:** keep the name `PBL3_Manuscript.pdf`, then remake the
+  page images. From any empty folder (needs Node.js):
+
+  ```
+  npm i pdfjs-dist@4
+  node /path/to/this/folder/tools/render-pages.mjs /path/to/this/folder
+  ```
+
+  It takes about a minute and overwrites `images/manuscript/`. Then check the
+  Contents page numbers, `data-pages="238"` in `manuscript.html`, and the page
+  count and size shown in `index.html` and `manuscript.html`. Browsers keep
+  images for up to a week (`vercel.json`), so returning visitors may see old pages
+  for a few days.
 
 ## Citation
 
@@ -261,6 +262,28 @@ Everything here is plain CSS plus a few lines in `js/main.js`, with no libraries
   page's footer (`.footer__quote`). New pages should copy the whole footer.
 - **404 page:** `404.html`, which Vercel serves for any unknown address. It uses
   absolute paths (`/css/styles.css`) because it can appear at any depth.
+
+## Lite mode for low-end phones
+
+Low-end phones and visitors saving data get the same design, held still. The
+continuous effects that make weak phones stutter are switched off:
+
+- the frosted blur under the header (a solid header instead);
+- the scroll-progress stripe;
+- blocks rising in and bars filling as you scroll (they're simply already there);
+- the looping liquid in the diagram and sample tube;
+- the count-up and the loading shimmer;
+- the cross-fade when switching themes.
+
+- **Who gets it:** `js/theme.js` adds `class="lite"` to `<html>` when the browser
+  reports data saver, a 2G/3G connection, or 4 GB of memory or less. Chrome on
+  Android reports memory; iPhones and computers don't, so they keep everything.
+  It's decided in `<head>`, before anything is drawn.
+- **Trying it:** add `?lite=1` to any address to force lite on, `?lite=0` to
+  force it off. The choice is remembered in that browser until changed.
+- **In the CSS:** each of those effects is written as `:root:not(.lite) …`, so a
+  new effect stays out of lite mode by following the same pattern.
+- **For everyone:** the looping liquid also pauses whenever it's off screen.
 
 ## Light and dark theme
 

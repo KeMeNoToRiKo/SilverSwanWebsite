@@ -52,6 +52,13 @@ document.querySelector(".swatches").addEventListener("keydown", e => {
 });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const lite = document.documentElement.classList.contains("lite");   // set by js/theme.js
+
+/* The looping liquid in the hero vial and Fig. 3 only runs while it's on screen. */
+const loops = new IntersectionObserver(entries => {
+  entries.forEach(e => e.target.classList.toggle("is-paused", !e.isIntersecting));
+});
+document.querySelectorAll(".vial, .diagram").forEach(n => loops.observe(n));
 
 /* Nav: mark the link for the section crossing the middle of the window. */
 const navLinks = new Map();
@@ -68,9 +75,10 @@ const spy = new IntersectionObserver(entries => {
 }, { rootMargin: "-45% 0px -54% 0px" });
 navLinks.forEach((a, section) => spy.observe(section));
 
-/* Results: the headline figures count up from zero the first time they're seen.
-   The real value is in the HTML, so without JavaScript nothing changes. */
-if (!reduceMotion) {
+/* Results: the headline figures count up from zero the first time they're seen
+   (not in lite mode). The real value is in the HTML, so without JavaScript
+   nothing changes. */
+if (!reduceMotion && !lite) {
   const counter = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;

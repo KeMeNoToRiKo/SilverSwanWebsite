@@ -26,8 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
-<link rel="modulepreload" href="js/vendor/pdfjs-4.10.38/pdf.min.mjs" />
-<script type="module" src="js/reader.js"></script>
+<script src="js/reader.js" defer></script>
 </head>
 <body>
 
@@ -199,7 +198,7 @@
 
       <!-- js/reader.js fills this with one slot per page. Without it (or if the
            reader fails to load) the message below stays, with a direct link. -->
-      <div class="pages" id="pages" tabindex="0" aria-label="Manuscript pages">
+      <div class="pages" id="pages" data-pages="238" tabindex="0" aria-label="Manuscript pages">
         <p class="reader__status" id="r-status">This reader needs JavaScript. <a href="PBL3_Manuscript.pdf">Open the PDF directly</a> instead.</p>
       </div>
     </section>
